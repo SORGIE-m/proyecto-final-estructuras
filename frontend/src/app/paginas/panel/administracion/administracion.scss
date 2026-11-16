@@ -1,0 +1,20 @@
+.mini { width: 56px; height: 40px; border-radius: 8px; overflow: hidden; app-imagen-apto { height: 100%; } }
+.nombre { font-size: 18px; }
+.acciones { white-space: nowrap; text-align: right; .btn.icono { width: 34px; height: 34px; } }
+.buscador { width: min(380px, 70vw); }
+.empleado { display: flex; gap: 14px; align-items: flex-start;
+  strong { display: block; font-weight: 500; } .tenue { display: block; }
+  .avatar { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--acento-claro);
+    font-family: var(--fuente-display); font-style: italic; font-size: 24px; color: var(--tierra-700); flex-shrink: 0; }
+  .columna { align-items: flex-end; gap: 6px; }
+}
+.temporada[data-t='ALTA'] { background: var(--estado-fuera-bg); color: var(--estado-fuera); border-color: transparent; }
+.temporada[data-t='MEDIA'] { background: var(--estado-pendiente-bg); color: #a87b22; border-color: transparent; }
+.temporada[data-t='BAJA'] { background: var(--estado-preparado-bg); color: var(--estado-preparado); border-color: transparent; }
+.carga { display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+  h3 { font-size: 28px; color: var(--tierra-800); text-transform: none; letter-spacing: 0; }
+  .circulo { width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; background: var(--arena-100); color: var(--tierra-700); }
+}
+.deshabilitado { opacity: .5; pointer-events: none; }
+.resultado { display: flex; gap: 10px; align-items: center; color: var(--exito); animation: aparecer .4s both; }
+.interruptor { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; color: var(--texto-suave); }

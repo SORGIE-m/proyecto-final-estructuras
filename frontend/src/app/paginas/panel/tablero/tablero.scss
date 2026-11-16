@@ -1,0 +1,43 @@
+.kpis .valor { margin-top: 6px; }
+.monto-kpi { font-size: 30px !important; }
+.barra { height: 6px; border-radius: 6px; background: var(--arena-200); margin-top: 12px; overflow: hidden;
+  span { display: block; height: 100%; background: linear-gradient(90deg, var(--dorado), var(--tierra-600)); border-radius: 6px; transition: width 1s cubic-bezier(.2,.7,.2,1); }
+}
+
+.leyenda { display: flex; gap: 6px; flex-wrap: wrap;
+  button { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--borde); background: var(--superficie-2); color: var(--texto-suave);
+    border-radius: 999px; padding: 6px 12px; font-family: var(--fuente); font-size: 12.5px; cursor: pointer; transition: all .2s ease;
+    b { font-weight: 600; color: var(--tierra-800); }
+    &:hover { border-color: var(--borde-fuerte); }
+    &.activa { background: var(--tierra-700); color: #fbf6ef; border-color: var(--tierra-700); b { color: #fff; } }
+  }
+  i { width: 10px; height: 10px; border-radius: 50%; }
+  i.PREPARADO { background: var(--estado-preparado); } i.OCUPADO { background: var(--estado-ocupado); }
+  i.PENDIENTE_PREPARACION { background: var(--estado-pendiente); } i.FUERA_SERVICIO { background: var(--estado-fuera); }
+}
+
+.bloque { margin-top: 14px; }
+.aptos { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 12px; margin-top: 10px; }
+
+.apto {
+  --c: var(--estado-preparado); --bg: var(--estado-preparado-bg);
+  position: relative; padding: 14px 16px 14px 18px; border-radius: 14px; background: var(--bg); overflow: hidden;
+  display: flex; flex-direction: column; gap: 2px; transition: transform .25s ease, box-shadow .25s ease;
+  &::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--c); }
+  &:hover { transform: translateY(-3px); box-shadow: var(--sombra); }
+  strong { font-size: 18px; font-weight: 500; letter-spacing: .06em; color: var(--tierra-900); }
+  .piso { font-size: 11px; color: var(--texto-tenue); }
+  .nombre { font-family: var(--fuente-display); font-style: italic; font-size: 17px; color: var(--tierra-700); }
+  .estado { font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--c); font-weight: 600; margin-top: 4px; }
+  small { font-size: 12px; color: var(--texto-suave); }
+  &.OCUPADO { --c: var(--estado-ocupado); --bg: var(--estado-ocupado-bg); }
+  &.PENDIENTE_PREPARACION, &.EN_PREPARACION { --c: #b8861f; --bg: var(--estado-pendiente-bg); }
+  &.EN_PREPARACION::before { animation: latido 1.4s ease-in-out infinite; }
+  &.FUERA_SERVICIO { --c: var(--estado-fuera); --bg: var(--estado-fuera-bg); }
+}
+
+.movimiento { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--arena-200);
+  &:last-child { border-bottom: none; }
+  strong { display: block; font-weight: 500; }
+}
+@keyframes latido { 50% { opacity: .35; } }

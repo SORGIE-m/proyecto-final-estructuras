@@ -1,0 +1,250 @@
+<div class="pagina">
+  <div class="encabezado-pagina">
+    <div>
+      <span class="sobretitulo">Gestión jerárquica</span>
+      <h1 class="titulo-display">Administración</h1>
+      <p>Apartamentos, huéspedes y empleados se administran sobre árboles binarios de búsqueda (por código y documento).</p>
+    </div>
+  </div>
+  <div class="pestanas mb">
+    <button type="button" [class.activa]="seccion() === 'apartamentos'" (click)="seccion.set('apartamentos')">Apartamentos</button>
+    <button type="button" [class.activa]="seccion() === 'huespedes'" (click)="seccion.set('huespedes')">Huéspedes</button>
+    <button type="button" [class.activa]="seccion() === 'empleados'" (click)="seccion.set('empleados')">Empleados</button>
+    <button type="button" [class.activa]="seccion() === 'temporadas'" (click)="seccion.set('temporadas')">Temporadas y tarifas</button>
+    <button type="button" [class.activa]="seccion() === 'datos'" (click)="seccion.set('datos')">Carga de datos</button>
+  </div>
+
+  @switch (seccion()) {
+    @case ('apartamentos') {
+      <div class="fila-entre mb">
+        <div class="campo"><label for="oa">Ordenar</label>
+          <select id="oa" class="entrada" [(ngModel)]="ordenAptos" (ngModelChange)="cargarAptos()">
+            <option value="codigo">Código (inorden del árbol)</option><option value="precio">Precio</option>
+            <option value="capacidad">Capacidad</option><option value="dormitorios">Dormitorios</option><option value="reservas">Número de reservas</option>
+          </select></div>
+        <button class="btn" type="button" (click)="nuevoApto()"><app-icono nombre="mas" [tamano]="16" /> Nuevo apartamento</button>
+      </div>
+      <div class="tabla-contenedor">
+        <table class="tabla">
+          <thead><tr><th></th><th>Código</th><th>Nombre</th><th>Ubicación</th><th>Capacidad</th><th>Tarifas (baja/media/alta)</th><th>Reservas</th><th>Estado</th><th></th></tr></thead>
+          <tbody>
+            @for (a of apartamentos(); track a.codigo) {
+              <tr>
+                <td><div class="mini"><app-imagen-apto [url]="a.imagenUrl" [nombre]="a.nombre" /></div></td>
+                <td><strong>{{ a.codigo }}</strong></td>
+                <td class="cursiva nombre">{{ a.nombre }}</td>
+                <td>Bloque {{ a.bloque }} · piso {{ a.piso }}</td>
+                <td>{{ a.capacidad }} pers. · {{ a.dormitorios }} hab.</td>
+                <td class="tenue">{{ a.tarifaBaja | moneda }} / {{ a.tarifaMedia | moneda }} / {{ a.tarifaAlta | moneda }}</td>
+                <td>{{ a.totalReservas }} <span class="tenue">({{ a.reservasActivas }} activas)</span></td>
+                <td><span class="chip" [class]="a.estado" [title]="a.motivoFueraServicio ?? ''">{{ a.estadoEtiqueta }}</span></td>
+                <td class="acciones">
+                  <button class="btn fantasma icono" type="button" title="Editar" (click)="editarApto(a)"><app-icono nombre="editar" [tamano]="16" /></button>
+                  @if (a.estado === 'FUERA_SERVICIO') {
+                    <button class="btn fantasma pequeno" type="button" (click)="devolverAlServicio(a)">Habilitar</button>
+                  } @else if (a.estado !== 'OCUPADO') {
+                    <button class="btn fantasma icono" type="button" title="Fuera de servicio" (click)="fueraServicio.set(a)"><app-icono nombre="alerta" [tamano]="16" /></button>
+                  }
+                  <button class="btn fantasma icono" type="button" title="Eliminar" (click)="eliminarApto(a)"><app-icono nombre="basura" [tamano]="16" /></button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    @case ('huespedes') {
+      <div class="fila-entre mb">
+        <form class="fila" (ngSubmit)="cargarHuespedes()">
+          <input class="entrada buscador" placeholder="Buscar por nombre, documento o correo" [(ngModel)]="textoHuesped" name="th" />
+          <button class="btn secundario" type="submit"><app-icono nombre="buscar" [tamano]="15" /></button>
+        </form>
+        <button class="btn" type="button" (click)="nuevoHuesped()"><app-icono nombre="mas" [tamano]="16" /> Nuevo huésped</button>
+      </div>
+      <div class="tabla-contenedor">
+        <table class="tabla">
+          <thead><tr><th>Documento</th><th>Nombre</th><th>Contacto</th><th>Nacimiento</th><th>Estancias</th><th>Cuenta</th><th></th></tr></thead>
+          <tbody>
+            @for (h of huespedes(); track h.documento) {
+              <tr>
+                <td><strong>{{ h.documento }}</strong></td><td>{{ h.nombre }}</td>
+                <td>{{ h.correo }}<br /><span class="tenue">{{ h.telefono }}</span></td>
+                <td>{{ h.fechaNacimiento | fecha: 'corta' }} {{ h.fechaNacimiento.substring(0, 4) }}</td>
+                <td>{{ h.estancias }}</td>
+                <td><span class="chip" [class]="h.cuentaActiva ? 'CONFIRMADA' : 'FINALIZADA'">{{ h.cuentaActiva ? 'Activa' : 'Sin acceso' }}</span></td>
+                <td class="acciones">
+                  <button class="btn fantasma icono" type="button" (click)="editarHuesped(h)"><app-icono nombre="editar" [tamano]="16" /></button>
+                  <button class="btn fantasma icono" type="button" (click)="eliminarHuesped(h)"><app-icono nombre="basura" [tamano]="16" /></button>
+                </td>
+              </tr>
+            } @empty { <tr><td colspan="7"><div class="vacio">Sin resultados.</div></td></tr> }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    @case ('empleados') {
+      <div class="fila-entre mb">
+        <span class="tenue">Los recepcionistas activos forman la lista circular de turnos.</span>
+        <button class="btn" type="button" (click)="nuevoEmpleado()"><app-icono nombre="mas" [tamano]="16" /> Nuevo empleado</button>
+      </div>
+      <div class="rejilla rejilla-3 escalonado">
+        @for (e of empleados(); track e.documento) {
+          <div class="tarjeta empleado">
+            <span class="avatar">{{ e.nombre.charAt(0) }}</span>
+            <div class="crece">
+              <strong>{{ e.nombre }}</strong>
+              <span class="tenue">{{ e.rol === 'ADMINISTRADOR' ? 'Administrador' : 'Recepcionista' }} · {{ e.usuario }}</span>
+              <span class="tenue">{{ e.correo }}</span>
+            </div>
+            <div class="columna">
+              <span class="chip" [class]="e.activo ? 'CONFIRMADA' : 'CANCELADA'">{{ e.activo ? 'Activo' : 'Inactivo' }}</span>
+              <div class="fila">
+                <button class="btn fantasma icono" type="button" (click)="editarEmpleado(e)"><app-icono nombre="editar" [tamano]="16" /></button>
+                @if (e.documento !== sesion.sesion()?.identificador) {
+                  <button class="btn fantasma icono" type="button" (click)="eliminarEmpleado(e)"><app-icono nombre="basura" [tamano]="16" /></button>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @case ('temporadas') {
+      <div class="fila-entre mb">
+        <span class="tenue">Las fechas sin temporada se cobran como temporada baja. Las tarifas por apartamento se editan en la pestaña Apartamentos.</span>
+        <button class="btn" type="button" (click)="nuevaTemporada()"><app-icono nombre="mas" [tamano]="16" /> Nueva temporada</button>
+      </div>
+      <div class="tabla-contenedor">
+        <table class="tabla">
+          <thead><tr><th>Temporada</th><th>Tipo</th><th>Inicio</th><th>Fin</th><th></th></tr></thead>
+          <tbody>
+            @for (t of temporadas(); track t.id) {
+              <tr>
+                <td>{{ t.nombre }}</td>
+                <td><span class="chip temporada" [attr.data-t]="t.tipo">{{ t.tipo === 'ALTA' ? 'Alta' : t.tipo === 'MEDIA' ? 'Media' : 'Baja' }}</span></td>
+                <td>{{ t.inicio | fecha }}</td><td>{{ t.fin | fecha }}</td>
+                <td class="acciones">
+                  <button class="btn fantasma icono" type="button" (click)="editarTemporada(t)"><app-icono nombre="editar" [tamano]="16" /></button>
+                  <button class="btn fantasma icono" type="button" (click)="eliminarTemporada(t)"><app-icono nombre="basura" [tamano]="16" /></button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    @case ('datos') {
+      <div class="rejilla rejilla-2">
+        <section class="tarjeta carga">
+          <span class="circulo"><app-icono nombre="capas" [tamano]="28" [grosor]="1.3" /></span>
+          <h3 class="cursiva">Escenario de prueba</h3>
+          <p class="suave">15 apartamentos en 3 bloques, el grafo del edificio con sus pasillos, 8 huéspedes, 4 empleados, 30 reservas en todos los estados,
+            solicitudes externas en cola (con conflictos) e historial de preparación. Las fechas se ajustan automáticamente a hoy.</p>
+          <button class="btn" type="button" [disabled]="ocupado()" (click)="cargarEscenario()"><app-icono nombre="recargar" [tamano]="16" /> Cargar escenario inicial</button>
+        </section>
+        <section class="tarjeta carga">
+          <span class="circulo"><app-icono nombre="subir" [tamano]="28" [grosor]="1.3" /></span>
+          <h3 class="cursiva">Desde un archivo plano</h3>
+          <p class="suave">Sube un archivo JSON con la misma estructura del escenario (temporadas, apartamentos, nodos, pasillos, huéspedes, empleados y reservas).
+            Si el archivo tiene errores, los datos actuales no se modifican.</p>
+          <label class="btn secundario" [class.deshabilitado]="ocupado()">
+            <app-icono nombre="subir" [tamano]="16" /> Elegir archivo .json
+            <input type="file" accept=".json,application/json" hidden (change)="subirEscenario($event)" />
+          </label>
+        </section>
+      </div>
+      @if (resultadoCarga()) { <div class="tarjeta mt resultado"><app-icono nombre="check" /> {{ resultadoCarga() }}</div> }
+    }
+  }
+</div>
+
+@if (editandoApto(); as e) {
+  <app-modal [titulo]="e.nuevo ? 'Nuevo apartamento' : 'Editar ' + e.datos.codigo" [ancho]="760" (cerrar)="editandoApto.set(null)">
+    <form class="formulario" (ngSubmit)="guardarApto()">
+      <div class="campo"><label for="ac">Código</label><input id="ac" class="entrada" name="c" [(ngModel)]="e.datos.codigo" [disabled]="!e.nuevo" /></div>
+      <div class="campo"><label for="an">Nombre</label><input id="an" class="entrada" name="n" [(ngModel)]="e.datos.nombre" /></div>
+      <div class="campo"><label for="ab">Bloque</label><input id="ab" class="entrada" name="b" [(ngModel)]="e.datos.bloque" /></div>
+      <div class="campo"><label for="ap">Piso</label><input id="ap" class="entrada" type="number" min="1" name="p" [(ngModel)]="e.datos.piso" /></div>
+      <div class="campo"><label for="ad">Dormitorios</label><input id="ad" class="entrada" type="number" min="1" name="d" [(ngModel)]="e.datos.dormitorios" /></div>
+      <div class="campo"><label for="acap">Capacidad</label><input id="acap" class="entrada" type="number" min="1" name="cap" [(ngModel)]="e.datos.capacidad" /></div>
+      <div class="campo"><label for="tb">Tarifa baja</label><input id="tb" class="entrada" type="number" min="1" name="tb" [(ngModel)]="e.datos.tarifaBaja" /></div>
+      <div class="campo"><label for="tm">Tarifa media</label><input id="tm" class="entrada" type="number" min="1" name="tm" [(ngModel)]="e.datos.tarifaMedia" /></div>
+      <div class="campo"><label for="ta">Tarifa alta</label><input id="ta" class="entrada" type="number" min="1" name="ta" [(ngModel)]="e.datos.tarifaAlta" /></div>
+      <div class="campo completo"><label for="car">Características (separadas por coma)</label><input id="car" class="entrada" name="car" [(ngModel)]="e.datos.caracteristicas" /></div>
+      <div class="campo completo"><label for="img">URL de la imagen</label><input id="img" class="entrada" name="img" [(ngModel)]="e.datos.imagenUrl" /></div>
+      <div class="campo completo"><label for="des">Descripción</label><textarea id="des" class="entrada" name="des" [(ngModel)]="e.datos.descripcion"></textarea></div>
+    </form>
+    <ng-container pie>
+      <button class="btn secundario" type="button" (click)="editandoApto.set(null)">Cancelar</button>
+      <button class="btn" type="button" [disabled]="ocupado()" (click)="guardarApto()">Guardar</button>
+    </ng-container>
+  </app-modal>
+}
+
+@if (fueraServicio(); as a) {
+  <app-modal titulo="Fuera de servicio" [sobretitulo]="a.codigo + ' · ' + a.nombre" [ancho]="480" (cerrar)="fueraServicio.set(null)">
+    <p class="suave">El apartamento no recibirá nuevas reservas y sus noches futuras aparecerán bloqueadas en el calendario.</p>
+    <div class="campo"><label for="mfs">Motivo (obligatorio)</label><input id="mfs" class="entrada" [(ngModel)]="motivo" name="mfs" /></div>
+    <ng-container pie>
+      <button class="btn secundario" type="button" (click)="fueraServicio.set(null)">Cancelar</button>
+      <button class="btn peligro" type="button" [disabled]="!motivo.trim() || ocupado()" (click)="marcarFueraServicio()">Marcar fuera de servicio</button>
+    </ng-container>
+  </app-modal>
+}
+
+@if (editandoHuesped(); as e) {
+  <app-modal [titulo]="e.nuevo ? 'Nuevo huésped' : 'Editar huésped'" [ancho]="640" (cerrar)="editandoHuesped.set(null)">
+    <form class="formulario" (ngSubmit)="guardarHuesped()">
+      <div class="campo"><label for="hd">Documento</label><input id="hd" class="entrada" name="hd" [(ngModel)]="e.datos['documento']" [disabled]="!e.nuevo" /></div>
+      <div class="campo"><label for="hn">Nombre</label><input id="hn" class="entrada" name="hn" [(ngModel)]="e.datos['nombre']" /></div>
+      <div class="campo"><label for="hf">Nacimiento</label><input id="hf" class="entrada" type="date" name="hf" [(ngModel)]="e.datos['fechaNacimiento']" /></div>
+      <div class="campo"><label for="ht">Teléfono</label><input id="ht" class="entrada" name="ht" [(ngModel)]="e.datos['telefono']" /></div>
+      <div class="campo"><label for="hc">Correo</label><input id="hc" class="entrada" type="email" name="hc" [(ngModel)]="e.datos['correo']" /></div>
+      <div class="campo"><label for="hk">{{ e.nuevo ? 'Contraseña' : 'Nueva contraseña (opcional)' }}</label><input id="hk" class="entrada" type="password" name="hk" [(ngModel)]="e.datos['clave']" /></div>
+    </form>
+    <ng-container pie>
+      <button class="btn secundario" type="button" (click)="editandoHuesped.set(null)">Cancelar</button>
+      <button class="btn" type="button" [disabled]="ocupado()" (click)="guardarHuesped()">Guardar</button>
+    </ng-container>
+  </app-modal>
+}
+
+@if (editandoEmpleado(); as e) {
+  <app-modal [titulo]="e.nuevo ? 'Nuevo empleado' : 'Editar empleado'" [ancho]="640" (cerrar)="editandoEmpleado.set(null)">
+    <form class="formulario" (ngSubmit)="guardarEmpleado()">
+      <div class="campo"><label for="ed">Documento</label><input id="ed" class="entrada" name="ed" [(ngModel)]="e.datos['documento']" [disabled]="!e.nuevo" /></div>
+      <div class="campo"><label for="en">Nombre</label><input id="en" class="entrada" name="en" [(ngModel)]="e.datos['nombre']" /></div>
+      <div class="campo"><label for="er">Rol</label>
+        <select id="er" class="entrada" name="er" [(ngModel)]="e.datos['rol']"><option value="RECEPCIONISTA">Recepcionista</option><option value="ADMINISTRADOR">Administrador</option></select></div>
+      <div class="campo"><label for="eu">Usuario</label><input id="eu" class="entrada" name="eu" [(ngModel)]="e.datos['usuario']" /></div>
+      <div class="campo"><label for="ec">Correo</label><input id="ec" class="entrada" name="ec" [(ngModel)]="e.datos['correo']" /></div>
+      <div class="campo"><label for="et">Teléfono</label><input id="et" class="entrada" name="et" [(ngModel)]="e.datos['telefono']" /></div>
+      <div class="campo"><label for="ek">{{ e.nuevo ? 'Contraseña' : 'Nueva contraseña (opcional)' }}</label><input id="ek" class="entrada" type="password" name="ek" [(ngModel)]="e.datos['clave']" /></div>
+      <label class="interruptor"><input type="checkbox" name="ea" [(ngModel)]="e.datos['activo']" /> Activo</label>
+    </form>
+    <ng-container pie>
+      <button class="btn secundario" type="button" (click)="editandoEmpleado.set(null)">Cancelar</button>
+      <button class="btn" type="button" [disabled]="ocupado()" (click)="guardarEmpleado()">Guardar</button>
+    </ng-container>
+  </app-modal>
+}
+
+@if (editandoTemporada(); as e) {
+  <app-modal [titulo]="e.id ? 'Editar temporada' : 'Nueva temporada'" [ancho]="560" (cerrar)="editandoTemporada.set(null)">
+    <form class="formulario" (ngSubmit)="guardarTemporada()">
+      <div class="campo completo"><label for="tn">Nombre</label><input id="tn" class="entrada" name="tn" [(ngModel)]="e.datos['nombre']" /></div>
+      <div class="campo"><label for="tt">Tipo</label>
+        <select id="tt" class="entrada" name="tt" [(ngModel)]="e.datos['tipo']"><option value="BAJA">Baja</option><option value="MEDIA">Media</option><option value="ALTA">Alta</option></select></div>
+      <div class="campo"><label for="ti">Inicio</label><input id="ti" class="entrada" type="date" name="ti" [(ngModel)]="e.datos['inicio']" /></div>
+      <div class="campo"><label for="tf">Fin (incluido)</label><input id="tf" class="entrada" type="date" name="tf" [(ngModel)]="e.datos['fin']" /></div>
+    </form>
+    <ng-container pie>
+      <button class="btn secundario" type="button" (click)="editandoTemporada.set(null)">Cancelar</button>
+      <button class="btn" type="button" [disabled]="ocupado()" (click)="guardarTemporada()">Guardar</button>
+    </ng-container>
+  </app-modal>
+}

@@ -1,0 +1,90 @@
+<div class="pagina">
+  <div class="encabezado-pagina">
+    <div>
+      <span class="sobretitulo">{{ hoy() | fecha }}</span>
+      <h1 class="titulo-display">Buen día, <span class="cursiva">{{ sesion.sesion()?.nombre?.split(' ')?.[0] }}</span></h1>
+      <p>Estado operativo del alojamiento y movimientos del día.</p>
+    </div>
+    <div class="fila">
+      <a class="btn secundario" routerLink="/panel/preparacion"><app-icono nombre="escoba" [tamano]="16" /> Preparación</a>
+      <a class="btn" routerLink="/panel/reservas" [queryParams]="{ nueva: 1 }"><app-icono nombre="mas" [tamano]="16" /> Nueva reserva</a>
+    </div>
+  </div>
+
+  @if (datos(); as d) {
+    <div class="rejilla rejilla-4 escalonado kpis">
+      <div class="tarjeta kpi"><div class="etiqueta">Ocupación hoy</div><div class="valor">{{ d.ocupacionHoy }}%</div>
+        <div class="barra"><span [style.width.%]="d.ocupacionHoy"></span></div></div>
+      <div class="tarjeta kpi"><div class="etiqueta">Llegadas · Salidas</div><div class="valor">{{ d.llegadasHoy }} · {{ d.salidasHoy }}</div>
+        <div class="detalle">programadas para hoy</div></div>
+      <div class="tarjeta kpi"><div class="etiqueta">Por confirmar</div><div class="valor">{{ d.reservasPendientes }}</div>
+        <div class="detalle">{{ d.solicitudesExternas }} solicitud(es) externas en cola</div></div>
+      <div class="tarjeta kpi"><div class="etiqueta">Recaudo del mes</div><div class="valor monto-kpi">{{ d.ingresosMes | moneda }}</div>
+        <div class="detalle">pagos netos registrados</div></div>
+    </div>
+  }
+
+  <section class="tarjeta mt-lg">
+    <div class="fila-entre mb">
+      <h3 class="tarjeta-titulo" style="margin: 0">Apartamentos</h3>
+      <div class="leyenda">
+        <button type="button" [class.activa]="filtro() === 'TODOS'" (click)="filtro.set('TODOS')">Todos <b>{{ apartamentos().length }}</b></button>
+        @for (l of leyenda; track l.estado) {
+          <button type="button" [class.activa]="filtro() === l.estado" (click)="filtro.set(l.estado)">
+            <i [class]="l.estado"></i>{{ l.texto }} <b>{{ contar(l.estado) }}</b>
+          </button>
+        }
+      </div>
+    </div>
+    @for (g of bloques(); track g.bloque) {
+      <div class="bloque">
+        <span class="sobretitulo">Bloque {{ g.bloque }}</span>
+        <div class="aptos escalonado">
+          @for (a of g.aptos; track a.codigo) {
+            <div class="apto" [class]="a.estado" [title]="a.motivoFueraServicio ?? a.estadoEtiqueta">
+              <div class="fila-entre"><strong>{{ a.codigo }}</strong><span class="piso">P{{ a.piso }}</span></div>
+              <span class="nombre">{{ a.nombre }}</span>
+              <span class="estado">{{ a.estadoEtiqueta }}</span>
+              @if (a.motivoFueraServicio) { <small>{{ a.motivoFueraServicio }}</small> }
+            </div>
+          }
+        </div>
+      </div>
+    } @empty {
+      <div class="vacio">No hay apartamentos en este estado.</div>
+    }
+  </section>
+
+  <div class="rejilla rejilla-2 mt-lg">
+    <section class="tarjeta">
+      <h3>Llegadas de hoy <span class="chip sin-punto">{{ llegadas().length }}</span></h3>
+      @for (r of llegadas(); track r.codigo) {
+        <div class="movimiento">
+          <div class="crece">
+            <strong>{{ r.titularNombre }}</strong>
+            <span class="tenue">{{ r.apartamentoCodigo }} · {{ r.ocupantes.length }} pers. · llega {{ r.horaLlegada | hora }}</span>
+          </div>
+          <span class="chip" [class]="r.estado">{{ r.estadoEtiqueta }}</span>
+          @if (r.estado === 'CONFIRMADA') {
+            <button class="btn pequeno" type="button" (click)="checkIn(r)">Check-in</button>
+          }
+        </div>
+      } @empty { <div class="vacio">Sin llegadas programadas.</div> }
+    </section>
+    <section class="tarjeta">
+      <h3>Salidas de hoy <span class="chip sin-punto">{{ salidas().length }}</span></h3>
+      @for (r of salidas(); track r.codigo) {
+        <div class="movimiento">
+          <div class="crece">
+            <strong>{{ r.titularNombre }}</strong>
+            <span class="tenue">{{ r.apartamentoCodigo }} · saldo {{ r.saldo | moneda }}</span>
+          </div>
+          <span class="chip" [class]="r.estado">{{ r.estadoEtiqueta }}</span>
+          @if (r.estado === 'EN_CURSO') {
+            <button class="btn pequeno secundario" type="button" (click)="checkOut(r)">Check-out</button>
+          }
+        </div>
+      } @empty { <div class="vacio">Sin salidas programadas.</div> }
+    </section>
+  </div>
+</div>

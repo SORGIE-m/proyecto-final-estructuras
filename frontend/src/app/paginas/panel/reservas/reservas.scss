@@ -1,0 +1,52 @@
+.filtros { display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap; .campo { min-width: 170px; } .btn { height: 44px; } }
+.canal { font-size: 11px; letter-spacing: .14em; color: var(--texto-suave); }
+.debe { color: var(--peligro) !important; }
+.positivo { color: var(--exito); }
+
+.dos-columnas { grid-template-columns: 1.1fr 1fr; align-items: start; }
+.ocupante { display: grid; grid-template-columns: 1fr 160px 38px; gap: 8px; animation: aparecer .3s both; }
+.integrantes { display: flex; flex-direction: column; gap: 8px; max-height: 360px; overflow-y: auto; padding-right: 4px;
+  .ocupante { grid-template-columns: 1fr 160px; } }
+.resumen-cot { padding: 14px; border-radius: 12px; background: var(--superficie-2); border: 1px solid var(--borde);
+  strong { font-family: var(--fuente-display); font-size: 26px; font-weight: 500; } }
+.noches-mini { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px;
+  span { font-size: 11px; padding: 3px 8px; border-radius: 6px; background: var(--estado-preparado-bg); color: var(--estado-preparado); }
+  span[data-t='Media'] { background: var(--estado-pendiente-bg); color: #a87b22; }
+  span[data-t='Alta'] { background: var(--estado-fuera-bg); color: var(--estado-fuera); }
+}
+.propuesta { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.apto-prop { padding: 14px; border-radius: 14px; background: var(--estado-preparado-bg); display: flex; flex-direction: column;
+  strong { letter-spacing: .08em; font-weight: 500; } .cursiva { font-size: 18px; } }
+
+.velo-cajon { position: fixed; inset: 0; background: rgba(53,44,37,.28); z-index: 70; animation: desvanecer .25s both; backdrop-filter: blur(2px); }
+.cajon { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100vw); z-index: 80; background: var(--superficie);
+  box-shadow: var(--sombra-lg); display: flex; flex-direction: column; animation: deslizar-derecha .4s cubic-bezier(.2,.7,.2,1) both;
+  header { padding: 22px 24px 14px; border-bottom: 1px solid var(--borde); h2 { font-size: 34px; } }
+}
+.cajon-cuerpo { padding: 18px 24px 40px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px;
+  > * { flex-shrink: 0; } }
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  div { padding: 12px 14px; border-radius: 12px; background: var(--superficie-2); border: 1px solid var(--borde); display: flex; flex-direction: column; }
+  small { font-size: 10.5px; text-transform: uppercase; letter-spacing: .16em; color: var(--texto-tenue); }
+  strong { font-weight: 500; }
+}
+.alerta { display: flex; gap: 8px; align-items: center; font-size: 13px; color: #8f6718; background: var(--estado-pendiente-bg); padding: 10px 12px; border-radius: 10px;
+  &.gris { background: var(--arena-100); color: var(--texto-suave); } }
+.acciones { display: flex; gap: 8px; flex-wrap: wrap; }
+.reembolso { display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 12px 14px; border-radius: 12px;
+  background: var(--estado-fuera-bg); font-size: 13.5px; animation: aparecer .3s both; }
+.ocupantes-lista { display: flex; gap: 6px; flex-wrap: wrap; }
+.saldo { font-family: var(--fuente-display); font-size: 22px; font-weight: 500; }
+.movimientos { border: 1px solid var(--borde); border-radius: 12px; overflow: hidden; }
+.mov { display: flex; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--arena-200); font-size: 13.5px; animation: aparecer .3s both;
+  &:last-child { border-bottom: none; }
+  .num { color: var(--texto-tenue); font-size: 12px; width: 28px; }
+  small { display: block; color: var(--texto-tenue); font-size: 11.5px; }
+  &.reverso { background: var(--arena-50); span:not(.num):not(.monto) { font-style: italic; } }
+}
+.nuevo-mov { display: grid; grid-template-columns: 1fr 140px; gap: 8px; }
+.desglose { display: flex; flex-direction: column;
+  div { display: grid; grid-template-columns: 1fr 70px 110px; gap: 8px; padding: 7px 0; border-bottom: 1px dashed var(--borde); font-size: 13px; }
+  .monto { text-align: right; }
+}
+@media (max-width: 980px) { .dos-columnas { grid-template-columns: 1fr; } }

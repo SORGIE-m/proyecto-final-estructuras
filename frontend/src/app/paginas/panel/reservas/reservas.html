@@ -1,0 +1,252 @@
+<div class="pagina">
+  <div class="encabezado-pagina">
+    <div>
+      <span class="sobretitulo">Recepción</span>
+      <h1 class="titulo-display">Reservas</h1>
+      <p>Portal, recepción directa y plataformas externas sobre los mismos apartamentos: nunca se vende dos veces la misma noche.</p>
+    </div>
+    <div class="pestanas">
+      <button type="button" [class.activa]="vista() === 'lista'" (click)="vista.set('lista')">Listado</button>
+      <button type="button" [class.activa]="vista() === 'directa'" (click)="vista.set('directa')">Reserva directa</button>
+      <button type="button" [class.activa]="vista() === 'grupo'" (click)="vista.set('grupo')">Grupo grande</button>
+    </div>
+  </div>
+
+  @switch (vista()) {
+    @case ('lista') {
+      <form class="tarjeta filtros" (ngSubmit)="cargar()">
+        <div class="campo crece"><label for="t">Buscar</label>
+          <input id="t" class="entrada" name="texto" [(ngModel)]="texto" placeholder="Código, titular, documento, apartamento o referencia" /></div>
+        <div class="campo"><label for="fe">Estado</label>
+          <select id="fe" class="entrada" name="estado" [(ngModel)]="filtroEstado" (ngModelChange)="cargar()">
+            <option value="">Todos</option><option value="PENDIENTE">Pendiente</option><option value="CONFIRMADA">Confirmada</option>
+            <option value="EN_CURSO">En curso</option><option value="FINALIZADA">Finalizada</option><option value="CANCELADA">Cancelada</option>
+            <option value="NO_SHOW">No-show</option>
+          </select></div>
+        <div class="campo"><label for="fc">Canal</label>
+          <select id="fc" class="entrada" name="canal" [(ngModel)]="filtroCanal" (ngModelChange)="cargar()">
+            <option value="">Todos</option><option value="PORTAL">Portal</option><option value="DIRECTA">Directa</option><option value="EXTERNA">Externa</option>
+          </select></div>
+        <button class="btn" type="submit"><app-icono nombre="buscar" [tamano]="15" /> Filtrar</button>
+      </form>
+
+      <div class="tabla-contenedor mt">
+        <table class="tabla">
+          <thead><tr><th>Código</th><th>Titular</th><th>Apartamento</th><th>Estancia</th><th>Canal</th><th>Estado</th><th class="derecha">Total</th><th class="derecha">Saldo</th></tr></thead>
+          <tbody>
+            @if (cargando()) {
+              <tr><td colspan="8"><div class="esqueleto" style="height: 120px"></div></td></tr>
+            } @else {
+              @for (r of reservas(); track r.codigo) {
+                <tr class="seleccionable" [class.activa]="detalle()?.codigo === r.codigo" (click)="abrir(r)">
+                  <td><strong>{{ r.codigo }}</strong></td>
+                  <td>{{ r.titularNombre }}<br /><span class="tenue">{{ r.titularDocumento }}</span></td>
+                  <td>{{ r.apartamentoCodigo }}<br /><span class="tenue">{{ r.apartamentoNombre }}</span></td>
+                  <td>{{ r.entrada | fecha: 'corta' }} → {{ r.salida | fecha: 'corta' }}<br /><span class="tenue">{{ r.noches }} noche(s)</span></td>
+                  <td><span class="canal">{{ r.canal }}</span></td>
+                  <td><span class="chip" [class]="r.estado">{{ r.estadoEtiqueta }}</span></td>
+                  <td class="derecha monto">{{ r.total | moneda }}</td>
+                  <td class="derecha monto" [class.debe]="r.saldo > 0">{{ r.saldo | moneda }}</td>
+                </tr>
+              } @empty {
+                <tr><td colspan="8"><div class="vacio">No hay reservas con esos filtros.</div></td></tr>
+              }
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    @case ('directa') {
+      <div class="rejilla dos-columnas">
+        <section class="tarjeta">
+          <h3>Titular</h3>
+          <div class="formulario">
+            <div class="campo"><label for="dd">Documento</label>
+              <div class="fila"><input id="dd" class="entrada crece" name="doc" [(ngModel)]="directa.titular.documento" (keyup.enter)="buscarTitular()" />
+                <button class="btn secundario icono" type="button" (click)="buscarTitular()" title="Buscar huésped registrado"><app-icono nombre="buscar" [tamano]="16" /></button></div></div>
+            <div class="campo"><label for="dn">Nombre</label><input id="dn" class="entrada" name="nom" [(ngModel)]="directa.titular.nombre" /></div>
+            <div class="campo"><label for="df">Nacimiento</label><input id="df" class="entrada" type="date" name="fn" [(ngModel)]="directa.titular.fechaNacimiento" /></div>
+            <div class="campo"><label for="dt">Teléfono</label><input id="dt" class="entrada" name="tel" [(ngModel)]="directa.titular.telefono" /></div>
+            <div class="campo completo"><label for="dc">Correo</label><input id="dc" class="entrada" type="email" name="cor" [(ngModel)]="directa.titular.correo" /></div>
+          </div>
+
+          <hr class="separador" />
+          <h3>Estancia</h3>
+          <div class="formulario">
+            <div class="campo"><label for="de">Entrada</label><input id="de" class="entrada" type="date" name="e" [min]="hoy" [(ngModel)]="directa.entrada" (change)="buscarLibres()" /></div>
+            <div class="campo"><label for="ds">Salida</label><input id="ds" class="entrada" type="date" name="s" [min]="directa.entrada" [(ngModel)]="directa.salida" (change)="buscarLibres()" /></div>
+            <div class="campo"><label for="dh">Hora de llegada</label><input id="dh" class="entrada" type="time" name="h" [(ngModel)]="directa.horaLlegada" /></div>
+            <div class="campo completo"><label for="da">Apartamento disponible ({{ libres().length }})</label>
+              <select id="da" class="entrada" name="apto" [(ngModel)]="directa.apartamentoCodigo" (ngModelChange)="cotizarDirecta()">
+                @for (o of libres(); track o.apartamento.codigo) {
+                  <option [value]="o.apartamento.codigo">{{ o.apartamento.codigo }} · {{ o.apartamento.nombre }} · hasta {{ o.apartamento.capacidad }} pers.</option>
+                } @empty { <option value="">Sin apartamentos libres para esas fechas</option> }
+              </select></div>
+            <div class="campo completo"><label for="dob">Observaciones</label><input id="dob" class="entrada" name="obs" [(ngModel)]="directa.observaciones" /></div>
+          </div>
+        </section>
+
+        <section class="tarjeta">
+          <h3>Ocupantes <button class="btn fantasma pequeno" type="button" (click)="agregarOcupanteDirecta()"><app-icono nombre="mas" [tamano]="14" /> Agregar</button></h3>
+          <div class="columna">
+            @for (o of ocupantesDirecta(); track $index; let i = $index) {
+              <div class="ocupante">
+                <input class="entrada" placeholder="Nombre" [ngModel]="o.nombre" (ngModelChange)="actualizarOcupante('directa', i, 'nombre', $event)" [name]="'on' + i" />
+                <input class="entrada" type="date" [ngModel]="o.fechaNacimiento" (ngModelChange)="actualizarOcupante('directa', i, 'fechaNacimiento', $event)" [name]="'of' + i" />
+                <button class="btn fantasma icono" type="button" (click)="quitarOcupanteDirecta(i)" [disabled]="ocupantesDirecta().length === 1"><app-icono nombre="cerrar" [tamano]="14" /></button>
+              </div>
+            }
+          </div>
+          @if (cotizacionDirecta(); as c) {
+            <div class="resumen-cot mt">
+              <div class="fila-entre"><span class="tenue">{{ c.noches }} noche(s) · {{ c.personasQuePagan }} pagan · {{ c.personasExentas }} exentos</span><strong>{{ c.total | moneda }}</strong></div>
+              <div class="noches-mini">
+                @for (n of c.desglose; track n.fecha) { <span [attr.data-t]="n.temporada" [title]="n.fecha + ' · ' + n.temporada">{{ n.fecha | fecha: 'corta' }}</span> }
+              </div>
+            </div>
+          }
+          <button class="btn bloque mt" type="button" [disabled]="ocupado() || !directa.apartamentoCodigo" (click)="crearDirecta()">
+            <app-icono nombre="check" [tamano]="16" /> Registrar reserva confirmada
+          </button>
+        </section>
+      </div>
+    }
+
+    @case ('grupo') {
+      <div class="rejilla dos-columnas">
+        <section class="tarjeta">
+          <h3>Grupo grande</h3>
+          <p class="suave">El sistema busca, con recursividad y backtracking, la combinación de apartamentos libres que aloja a todo el grupo con el <em>menor número de apartamentos</em>.</p>
+          <div class="formulario">
+            <div class="campo"><label for="ge">Entrada</label><input id="ge" class="entrada" type="date" name="ge" [min]="hoy" [(ngModel)]="grupo.entrada" /></div>
+            <div class="campo"><label for="gs">Salida</label><input id="gs" class="entrada" type="date" name="gs" [(ngModel)]="grupo.salida" /></div>
+            <div class="campo"><label for="gp">Personas</label><input id="gp" class="entrada" type="number" min="2" max="120" name="gp" [(ngModel)]="grupo.personas" /></div>
+            <div class="campo"><label for="gh">Hora de llegada</label><input id="gh" class="entrada" type="time" name="gh" [(ngModel)]="grupo.horaLlegada" /></div>
+          </div>
+          <button class="btn secundario mt" type="button" (click)="proponer()"><app-icono nombre="capas" [tamano]="16" /> Calcular asignación</button>
+
+          @if (propuesta(); as p) {
+            <div class="propuesta mt escalonado">
+              @for (a of p.apartamentos; track a.codigo) {
+                <div class="apto-prop"><strong>{{ a.codigo }}</strong><span class="cursiva">{{ a.nombre }}</span><span class="tenue">{{ a.capacidad }} personas</span></div>
+              }
+            </div>
+            <p class="tenue mt">{{ p.apartamentos.length }} apartamento(s) · capacidad {{ p.capacidadTotal }} para {{ p.personas }} personas ·
+              {{ p.candidatosEvaluados }} candidatos evaluados · estimado {{ p.totalEstimado | moneda }}</p>
+          }
+        </section>
+        <section class="tarjeta">
+          <h3>Titular e integrantes</h3>
+          <div class="formulario">
+            <div class="campo"><label for="gtd">Documento titular</label><input id="gtd" class="entrada" name="gtd" [(ngModel)]="directa.titular.documento" (blur)="buscarTitular()" /></div>
+            <div class="campo"><label for="gtn">Nombre</label><input id="gtn" class="entrada" name="gtn" [(ngModel)]="directa.titular.nombre" /></div>
+            <div class="campo"><label for="gtf">Nacimiento</label><input id="gtf" class="entrada" type="date" name="gtf" [(ngModel)]="directa.titular.fechaNacimiento" /></div>
+            <div class="campo"><label for="gtt">Teléfono</label><input id="gtt" class="entrada" name="gtt" [(ngModel)]="directa.titular.telefono" /></div>
+            <div class="campo completo"><label for="gtc">Correo</label><input id="gtc" class="entrada" type="email" name="gtc" [(ngModel)]="directa.titular.correo" /></div>
+          </div>
+          @if (integrantes().length) {
+            <div class="integrantes mt">
+              @for (o of integrantes(); track $index; let i = $index) {
+                <div class="ocupante">
+                  <input class="entrada" [ngModel]="o.nombre" (ngModelChange)="actualizarOcupante('grupo', i, 'nombre', $event)" [name]="'gn' + i" />
+                  <input class="entrada" type="date" [ngModel]="o.fechaNacimiento" (ngModelChange)="actualizarOcupante('grupo', i, 'fechaNacimiento', $event)" [name]="'gf' + i" />
+                </div>
+              }
+            </div>
+            <button class="btn bloque mt" type="button" [disabled]="ocupado()" (click)="crearGrupo()"><app-icono nombre="check" [tamano]="16" /> Reservar el grupo</button>
+          } @else {
+            <div class="vacio">Calcula la asignación para registrar a los integrantes.</div>
+          }
+        </section>
+      </div>
+    }
+  }
+</div>
+
+@if (detalle(); as r) {
+  <div class="velo-cajon" (click)="detalle.set(null)"></div>
+  <aside class="cajon">
+    <header class="fila-entre">
+      <div>
+        <span class="sobretitulo">{{ r.canal }} · creada {{ r.creadaEn | fecha: 'hora' }}</span>
+        <h2 class="cursiva">{{ r.codigo }}</h2>
+      </div>
+      <div class="fila">
+        <span class="chip" [class]="r.estado">{{ r.estadoEtiqueta }}</span>
+        <button class="btn fantasma icono" type="button" (click)="detalle.set(null)"><app-icono nombre="cerrar" /></button>
+      </div>
+    </header>
+
+    <div class="cajon-cuerpo">
+      <div class="info-grid">
+        <div><small>Titular</small><strong>{{ r.titularNombre }}</strong><span class="tenue">{{ r.titularDocumento }}</span></div>
+        <div><small>Apartamento</small><strong>{{ r.apartamentoCodigo }}</strong><span class="tenue">{{ r.apartamentoNombre }}</span></div>
+        <div><small>Estancia</small><strong>{{ r.entrada | fecha: 'corta' }} → {{ r.salida | fecha: 'corta' }}</strong><span class="tenue">{{ r.noches }} noche(s) · llega {{ r.horaLlegada | hora }}</span></div>
+        <div><small>Total</small><strong>{{ r.total | moneda }}</strong><span class="tenue">anticipo {{ r.anticipoRequerido | moneda }}</span></div>
+      </div>
+      @if (r.venceEn) { <div class="alerta"><app-icono nombre="reloj" [tamano]="15" /> Vence {{ r.venceEn | fecha: 'hora' }} si no se paga el anticipo ({{ r.anticipoPendiente | moneda }}).</div> }
+      @if (r.motivoCierre) { <div class="alerta gris">{{ r.motivoCierre }}</div> }
+      @if (r.referenciaExterna) { <div class="tenue">Referencia externa: {{ r.referenciaExterna }}</div> }
+
+      <div class="acciones">
+        @if (r.estado === 'PENDIENTE') { <button class="btn pequeno" type="button" [disabled]="ocupado()" (click)="accion('confirmar')">Confirmar</button> }
+        @if (r.estado === 'CONFIRMADA') { <button class="btn pequeno" type="button" [disabled]="ocupado()" (click)="accion('checkIn')"><app-icono nombre="entrar" [tamano]="14" /> Check-in</button> }
+        @if (r.estado === 'EN_CURSO') { <button class="btn pequeno" type="button" [disabled]="ocupado()" (click)="accion('checkOut')"><app-icono nombre="salir" [tamano]="14" /> Check-out</button> }
+        @if (r.estado === 'CONFIRMADA') { <button class="btn secundario pequeno" type="button" [disabled]="ocupado()" (click)="accion('noShow')">No-show</button> }
+        @if (r.estado === 'PENDIENTE' || r.estado === 'CONFIRMADA') { <button class="btn fantasma pequeno" type="button" (click)="verCancelacion()">Cancelar…</button> }
+      </div>
+      @if (reembolso(); as re) {
+        <div class="reembolso">
+          <span>{{ re.regla }}: devolución de <strong>{{ re.reembolso | moneda }}</strong> ({{ re.porcentaje }} %) de {{ re.pagado | moneda }} pagados.</span>
+          <button class="btn peligro pequeno" type="button" (click)="cancelar()">Confirmar cancelación</button>
+        </div>
+      }
+
+      <span class="sobretitulo">Ocupantes</span>
+      <div class="ocupantes-lista">
+        @for (o of r.ocupantes; track $index) {
+          <span class="chip sin-punto">{{ o.nombre }} · {{ o.edad }} años{{ o.paga ? '' : ' · no paga' }}</span>
+        }
+      </div>
+
+      <div class="fila-entre mt">
+        <span class="sobretitulo">Folio</span>
+        @if (folio(); as f) { <span class="saldo" [class.debe]="f.saldo > 0">Saldo {{ f.saldo | moneda }}</span> }
+      </div>
+      @if (folio(); as f) {
+        <div class="movimientos">
+          @for (m of f.movimientos; track m.numero) {
+            <div class="mov" [class.reverso]="m.numeroReferencia !== null">
+              <span class="num">#{{ m.numero }}</span>
+              <div class="crece"><span>{{ m.concepto }}</span><small>{{ m.tipoEtiqueta }} · {{ m.fecha | fecha: 'hora' }} · {{ m.usuario }}</small></div>
+              <span class="monto" [class.positivo]="m.efecto < 0">{{ m.efecto | moneda }}</span>
+            </div>
+          }
+        </div>
+        @if (r.estado === 'PENDIENTE' || r.estado === 'CONFIRMADA' || r.estado === 'EN_CURSO') {
+          <div class="nuevo-mov">
+            <input class="entrada" placeholder="Concepto" [(ngModel)]="movimiento.concepto" name="mc" />
+            <input class="entrada" type="number" min="1" placeholder="Monto" [(ngModel)]="movimiento.monto" name="mm" />
+          </div>
+          <div class="fila mt">
+            <button class="btn secundario pequeno" type="button" [disabled]="ocupado()" (click)="registrarMovimiento('cargo')"><app-icono nombre="mas" [tamano]="14" /> Cargo</button>
+            <button class="btn secundario pequeno" type="button" [disabled]="ocupado()" (click)="registrarMovimiento('pago')"><app-icono nombre="dinero" [tamano]="14" /> Pago</button>
+            @if (f.saldo > 0) { <button class="btn pequeno" type="button" [disabled]="ocupado()" (click)="pagarSaldo()">Pagar saldo</button> }
+            <button class="btn fantasma pequeno" type="button" [disabled]="!f.ultimaOperacion" (click)="deshacer()"
+              [title]="f.ultimaOperacion ? 'Deshacer #' + f.ultimaOperacion.numero : 'No hay operaciones para deshacer'">
+              <app-icono nombre="deshacer" [tamano]="14" /> Deshacer ({{ f.deshacibles }})
+            </button>
+          </div>
+        }
+      }
+
+      <span class="sobretitulo mt-lg" style="display:block">Desglose noche por noche</span>
+      <div class="desglose">
+        @for (n of r.desglose; track n.fecha) {
+          <div><span>{{ n.fecha | fecha: 'larga' }}</span><span class="tenue">{{ n.temporada }}</span><span class="monto">{{ n.subtotal | moneda }}</span></div>
+        }
+      </div>
+    </div>
+  </aside>
+}

@@ -1,0 +1,53 @@
+// Paleta de 2 series validada (CVD, contraste y croma): caramelo #b0682c y azul #2f74a8
+$s1: #b0682c;
+$s2: #2f74a8;
+$una-serie: #8a705a;
+
+.controles { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.atenuado { opacity: .6; transition: opacity .2s ease; }
+.valor.pequeno { font-size: 28px !important; }
+
+.leyenda { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--texto-suave); margin-right: 8px; }
+i.s1, i.s2 { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+i.s1 { background: $s1; } i.s2 { background: $s2; }
+
+.grafico-ingresos { display: grid; grid-template-columns: 52px 1fr; gap: 8px; height: 230px; }
+.eje { position: relative; height: 180px; span { position: absolute; right: 4px; transform: translateY(50%); font-size: 11px; color: var(--texto-tenue); } }
+.columnas { position: relative; display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; height: 180px; align-items: end; }
+.guia { position: absolute; left: 0; right: 0; height: 1px; background: var(--arena-200); }
+.mes { position: relative; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; cursor: default;
+  small { position: absolute; bottom: -24px; font-size: 11px; color: var(--texto-tenue); white-space: nowrap; }
+  &.activo { background: rgba(169, 141, 109, .08); border-radius: 8px 8px 0 0; }
+}
+.barras { display: flex; align-items: flex-end; gap: 2px; height: 100%; }
+.b { width: 12px; min-height: 2px; border-radius: 4px 4px 0 0; transition: height .8s cubic-bezier(.2,.7,.2,1); animation: crecer .9s cubic-bezier(.2,.7,.2,1) both; transform-origin: bottom; }
+.b.s1 { background: $s1; } .b.s2 { background: $s2; }
+.tooltip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); z-index: 5; min-width: 210px; padding: 10px 12px;
+  background: var(--superficie); border: 1px solid var(--borde); border-radius: 12px; box-shadow: var(--sombra); display: flex; flex-direction: column; gap: 4px;
+  font-size: 12.5px; animation: aparecer .2s both;
+  strong { font-weight: 500; text-transform: capitalize; } span { display: flex; align-items: center; gap: 6px; color: var(--texto-suave); } b { margin-left: auto; color: var(--texto); font-weight: 500; }
+}
+
+.barras-h { display: flex; flex-direction: column; gap: 6px; }
+.fila-barra { display: grid; grid-template-columns: 48px 1fr 52px; gap: 10px; align-items: center; font-size: 13px;
+  .cod { letter-spacing: .06em; color: var(--texto-suave); } .cod.ancho { width: 60px; }
+  .valor-barra { text-align: right; font-variant-numeric: tabular-nums; color: var(--texto); }
+  &:hover .pista span { filter: brightness(1.1); }
+}
+.pista { height: 12px; background: var(--arena-100); border-radius: 4px; overflow: hidden;
+  span { display: block; height: 100%; background: $una-serie; border-radius: 4px; animation: extender 1s cubic-bezier(.2,.7,.2,1) both; transform-origin: left; } }
+
+.conflictos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px;
+  div { text-align: center; padding: 10px; border-radius: 12px; background: var(--superficie-2); }
+  strong { display: block; font-family: var(--fuente-display); font-size: 26px; font-weight: 500; }
+  small { font-size: 10.5px; text-transform: uppercase; letter-spacing: .12em; color: var(--texto-tenue); }
+  .malo { background: var(--estado-fuera-bg); }
+}
+.conflicto { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--texto-suave); padding: 6px 0; border-top: 1px solid var(--arena-200);
+  b { font-weight: 500; color: var(--texto); } }
+
+.estructuras div { padding: 12px 14px; border-radius: 12px; background: var(--superficie-2); border: 1px solid var(--borde);
+  small { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .12em; color: var(--texto-tenue); } strong { font-weight: 500; } }
+
+@keyframes crecer { from { transform: scaleY(0); } to { transform: none; } }
+@keyframes extender { from { transform: scaleX(0); } to { transform: none; } }

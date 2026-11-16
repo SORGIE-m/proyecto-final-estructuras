@@ -1,0 +1,154 @@
+<div class="pagina">
+  <div class="encabezado-pagina">
+    <div>
+      <span class="sobretitulo">Reportes avanzados</span>
+      <h1 class="titulo-display">Estadísticas</h1>
+      <p>Calculadas recorriendo las estructuras propias: árboles de apartamentos y reservas, cola del canal externo y registros de preparación.</p>
+    </div>
+  </div>
+
+  <div class="tarjeta controles">
+    <div class="pestanas">
+      <button type="button" (click)="periodo('mes')">Este mes</button>
+      <button type="button" (click)="periodo('trimestre')">Trimestre</button>
+      <button type="button" (click)="periodo('anio')">Año</button>
+    </div>
+    <div class="fila">
+      <div class="campo"><label for="d">Desde</label><input id="d" class="entrada" type="date" [(ngModel)]="desde" (change)="cargar()" /></div>
+      <div class="campo"><label for="h">Hasta</label><input id="h" class="entrada" type="date" [(ngModel)]="hasta" (change)="cargar()" /></div>
+    </div>
+  </div>
+
+  @if (datos(); as d) {
+    <div class="rejilla rejilla-4 escalonado mt" [class.atenuado]="cargando()">
+      <div class="tarjeta kpi"><div class="etiqueta">Ocupación promedio</div><div class="valor">{{ d.resumen.ocupacionPromedio }}%</div>
+        <div class="detalle">{{ d.resumen.apartamentos }} apartamentos</div></div>
+      <div class="tarjeta kpi"><div class="etiqueta">Recaudado</div><div class="valor pequeno">{{ d.resumen.ingresosRecaudados | moneda }}</div>
+        <div class="detalle">facturado {{ d.resumen.ingresosFacturados | moneda }}</div></div>
+      <div class="tarjeta kpi"><div class="etiqueta">Tarifa media por noche</div><div class="valor pequeno">{{ d.resumen.tarifaPromedioNoche | moneda }}</div>
+        <div class="detalle">por apartamento ocupado</div></div>
+      <div class="tarjeta kpi"><div class="etiqueta">Preparación promedio</div><div class="valor">{{ d.preparacion.promedioMinutos.toFixed(0) }} min</div>
+        <div class="detalle">espera {{ d.preparacion.promedioEsperaMinutos.toFixed(0) }} min · {{ d.preparacion.registros }} registros</div></div>
+    </div>
+
+    <section class="tarjeta mt-lg">
+      <div class="fila-entre mb">
+        <h3 class="tarjeta-titulo" style="margin:0">Ingresos por mes</h3>
+        <div class="fila">
+          <span class="leyenda"><i class="s1"></i> Recaudado (pagos netos)</span>
+          <span class="leyenda"><i class="s2"></i> Facturado (noches liquidadas)</span>
+          <button class="btn fantasma pequeno" type="button" (click)="verTabla.set(!verTabla())">{{ verTabla() ? 'Ver gráfico' : 'Ver tabla' }}</button>
+        </div>
+      </div>
+      @if (!verTabla()) {
+        <div class="grafico-ingresos">
+          <div class="eje">
+            @for (m of marcasEje(); track m) { <span [style.bottom.px]="alto(m)">{{ compacto(m) }}</span> }
+          </div>
+          <div class="columnas">
+            @for (m of marcasEje(); track m) { <div class="guia" [style.bottom.px]="alto(m)"></div> }
+            @for (m of d.ingresosPorMes; track m.mes; let i = $index) {
+              <div class="mes" (mouseenter)="mesActivo.set(i)" (mouseleave)="mesActivo.set(null)" [class.activo]="mesActivo() === i">
+                <div class="barras">
+                  <span class="b s1" [style.height.px]="alto(m.recaudado)"></span>
+                  <span class="b s2" [style.height.px]="alto(m.facturado)"></span>
+                </div>
+                <small>{{ etiquetaMes(m.mes) }}</small>
+                @if (mesActivo() === i) {
+                  <div class="tooltip">
+                    <strong>{{ etiquetaMes(m.mes) }}</strong>
+                    <span><i class="s1"></i> Recaudado <b>{{ m.recaudado | moneda }}</b></span>
+                    <span><i class="s2"></i> Facturado <b>{{ m.facturado | moneda }}</b></span>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      } @else {
+        <div class="tabla-contenedor">
+          <table class="tabla">
+            <thead><tr><th>Mes</th><th class="derecha">Recaudado</th><th class="derecha">Facturado</th></tr></thead>
+            <tbody>
+              @for (m of d.ingresosPorMes; track m.mes) {
+                <tr><td>{{ etiquetaMes(m.mes) }}</td><td class="derecha monto">{{ m.recaudado | moneda }}</td><td class="derecha monto">{{ m.facturado | moneda }}</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </section>
+
+    <div class="rejilla rejilla-2 mt-lg">
+      <section class="tarjeta">
+        <h3>Ocupación por apartamento</h3>
+        <div class="barras-h">
+          @for (a of d.ocupacionPorApartamento; track a.codigo) {
+            <div class="fila-barra" [title]="a.nombre + ': ' + a.nochesOcupadas + ' de ' + a.nochesPeriodo + ' noches'">
+              <span class="cod">{{ a.codigo }}</span>
+              <div class="pista"><span [style.width.%]="a.porcentaje"></span></div>
+              <span class="valor-barra">{{ a.porcentaje }}%</span>
+            </div>
+          }
+        </div>
+      </section>
+
+      <div class="columna">
+        <section class="tarjeta">
+          <h3>Ocupación por temporada</h3>
+          @for (t of d.ocupacionPorTemporada; track t.temporada) {
+            <div class="fila-barra" [title]="t.nochesOcupadas + ' de ' + t.nochesDisponibles + ' noches disponibles'">
+              <span class="cod ancho">{{ t.temporada }}</span>
+              <div class="pista"><span [style.width.%]="t.porcentaje"></span></div>
+              <span class="valor-barra">{{ t.nochesDisponibles ? t.porcentaje + '%' : '—' }}</span>
+            </div>
+          }
+          <p class="tenue">Noches-apartamento del periodo en cada temporada.</p>
+        </section>
+
+        <section class="tarjeta">
+          <h3>Conflictos de canal</h3>
+          <div class="conflictos">
+            <div><strong>{{ d.conflictos.procesadas }}</strong><small>procesadas</small></div>
+            <div><strong>{{ d.conflictos.aceptadas }}</strong><small>aceptadas</small></div>
+            <div class="malo"><strong>{{ d.conflictos.conflictos }}</strong><small>conflictos</small></div>
+            <div><strong>{{ d.conflictos.rechazadas }}</strong><small>rechazadas</small></div>
+          </div>
+          @for (c of d.conflictos.recientes; track c.solicitud) {
+            <div class="conflicto"><app-icono nombre="alerta" [tamano]="14" /><span><b>{{ c.plataforma }} · {{ c.apartamento }}</b> {{ c.motivo }}</span></div>
+          }
+        </section>
+      </div>
+    </div>
+
+    <section class="tarjeta mt-lg">
+      <h3>Reservas por canal (incluye canceladas y no-show)</h3>
+      <div class="tabla-contenedor">
+        <table class="tabla">
+          <thead><tr><th>Canal</th><th>Volumen</th><th class="derecha">Total</th><th class="derecha">Pend.</th><th class="derecha">Confirm.</th>
+            <th class="derecha">En curso</th><th class="derecha">Finaliz.</th><th class="derecha">Cancel.</th><th class="derecha">No-show</th></tr></thead>
+          <tbody>
+            @for (c of d.reservasPorCanal; track c.canal) {
+              <tr><td><strong>{{ c.canal }}</strong></td>
+                <td style="width: 28%"><div class="pista"><span [style.width.%]="(c.total / maxCanal()) * 100"></span></div></td>
+                <td class="derecha monto">{{ c.total }}</td><td class="derecha">{{ c.pendientes }}</td><td class="derecha">{{ c.confirmadas }}</td>
+                <td class="derecha">{{ c.enCurso }}</td><td class="derecha">{{ c.finalizadas }}</td><td class="derecha">{{ c.canceladas }}</td><td class="derecha">{{ c.noShow }}</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tarjeta mt-lg estructuras">
+      <h3>Estructuras de datos en uso</h3>
+      <div class="rejilla rejilla-4">
+        <div><small>Árbol de apartamentos</small><strong>{{ d.estructuras.apartamentosArbol }} nodos · altura {{ d.estructuras.alturaArbolApartamentos }}</strong></div>
+        <div><small>Árbol de huéspedes</small><strong>{{ d.estructuras.huespedesArbol }} nodos · altura {{ d.estructuras.alturaArbolHuespedes }}</strong></div>
+        <div><small>Grafo del edificio</small><strong>{{ d.estructuras.nodosGrafo }} vértices · {{ d.estructuras.pasillosGrafo }} aristas</strong></div>
+        <div><small>Índice de reservas / cola externa</small><strong>{{ d.estructuras.reservasIndexadas }} · {{ d.estructuras.solicitudesEnCola }} en cola</strong></div>
+      </div>
+    </section>
+  } @else {
+    <div class="esqueleto mt" style="height: 420px"></div>
+  }
+</div>
