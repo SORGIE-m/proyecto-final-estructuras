@@ -1,0 +1,1930 @@
+{
+  "nombre": "Aparta-Suites UQ · Escenario inicial",
+  "temporadas": [
+    {
+      "nombre": "Temporada de fin de año",
+      "tipo": "ALTA",
+      "inicio": "12-15",
+      "fin": "01-15"
+    },
+    {
+      "nombre": "Inicio de año",
+      "tipo": "MEDIA",
+      "inicio": "01-16",
+      "fin": "02-15"
+    },
+    {
+      "nombre": "Semana Santa",
+      "tipo": "ALTA",
+      "inicio": "03-28",
+      "fin": "04-06"
+    },
+    {
+      "nombre": "Antesala de vacaciones",
+      "tipo": "MEDIA",
+      "inicio": "06-01",
+      "fin": "06-14"
+    },
+    {
+      "nombre": "Vacaciones de mitad de año",
+      "tipo": "ALTA",
+      "inicio": "06-15",
+      "fin": "07-31"
+    },
+    {
+      "nombre": "Receso de octubre",
+      "tipo": "MEDIA",
+      "inicio": "10-05",
+      "fin": "10-15"
+    },
+    {
+      "nombre": "Puentes festivos de noviembre",
+      "tipo": "MEDIA",
+      "inicio": "11-01",
+      "fin": "12-14"
+    }
+  ],
+  "apartamentos": [
+    {
+      "codigo": "A101",
+      "nombre": "Suite Palma de Cera",
+      "bloque": "A",
+      "piso": 1,
+      "dormitorios": 1,
+      "capacidad": 3,
+      "caracteristicas": [
+        "Wi-Fi 24 h",
+        "Cocina equipada",
+        "Terraza al jardín",
+        "Agua caliente"
+      ],
+      "tarifaBaja": 110000,
+      "tarifaMedia": 138000,
+      "tarifaAlta": 176000,
+      "descripcion": "Acogedora suite de un dormitorio con terraza privada hacia el jardín de palmas.",
+      "imagenUrl": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PREPARADO",
+      "motivo": null
+    },
+    {
+      "codigo": "A102",
+      "nombre": "Cocora",
+      "bloque": "A",
+      "piso": 1,
+      "dormitorios": 2,
+      "capacidad": 4,
+      "caracteristicas": [
+        "Wi-Fi 24 h",
+        "Cocina equipada",
+        "Chimenea",
+        "Balcón"
+      ],
+      "tarifaBaja": 125000,
+      "tarifaMedia": 156000,
+      "tarifaAlta": 200000,
+      "descripcion": "Dos dormitorios cálidos con chimenea de leña, ideal para familias.",
+      "imagenUrl": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PREPARADO",
+      "motivo": null
+    },
+    {
+      "codigo": "A201",
+      "nombre": "Mirador Quindío",
+      "bloque": "A",
+      "piso": 2,
+      "dormitorios": 2,
+      "capacidad": 4,
+      "caracteristicas": [
+        "Vista al valle",
+        "Wi-Fi 24 h",
+        "Cocina equipada",
+        "Balcón"
+      ],
+      "tarifaBaja": 135000,
+      "tarifaMedia": 169000,
+      "tarifaAlta": 216000,
+      "descripcion": "Ventanales hacia el valle del Quindío y balcón para el café de la mañana.",
+      "imagenUrl": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PENDIENTE_PREPARACION",
+      "motivo": null
+    },
+    {
+      "codigo": "A202",
+      "nombre": "Café de Origen",
+      "bloque": "A",
+      "piso": 2,
+      "dormitorios": 1,
+      "capacidad": 2,
+      "caracteristicas": [
+        "Cafetera de filtro",
+        "Wi-Fi 24 h",
+        "Escritorio",
+        "Agua caliente"
+      ],
+      "tarifaBaja": 98000,
+      "tarifaMedia": 122000,
+      "tarifaAlta": 157000,
+      "descripcion": "Estudio íntimo para parejas, con barra de café de origen.",
+      "imagenUrl": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PREPARADO",
+      "motivo": null
+    },
+    {
+      "codigo": "A301",
+      "nombre": "Bahareque",
+      "bloque": "A",
+      "piso": 3,
+      "dormitorios": 2,
+      "capacidad": 5,
+      "caracteristicas": [
+        "Arquitectura tradicional",
+        "Wi-Fi 24 h",
+        "Cocina equipada",
+        "Sala y comedor"
+      ],
+      "tarifaBaja": 140000,
+      "tarifaMedia": 175000,
+      "tarifaAlta": 224000,
+      "descripcion": "Muros de bahareque restaurado y techos altos de madera.",
+      "imagenUrl": "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PREPARADO",
+      "motivo": null
+    },
+    {
+      "codigo": "A302",
+      "nombre": "Barranquero",
+      "bloque": "A",
+      "piso": 3,
+      "dormitorios": 1,
+      "capacidad": 2,
+      "caracteristicas": [
+        "Vista a la montaña",
+        "Wi-Fi 24 h",
+        "Jacuzzi"
+      ],
+      "tarifaBaja": 150000,
+      "tarifaMedia": 188000,
+      "tarifaAlta": 240000,
+      "descripcion": "Suite romántica con jacuzzi y vista a las montañas.",
+      "imagenUrl": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1200&q=80",
+      "estado": "EN_PREPARACION",
+      "motivo": null
+    },
+    {
+      "codigo": "B101",
+      "nombre": "Guadua",
+      "bloque": "B",
+      "piso": 1,
+      "dormitorios": 2,
+      "capacidad": 4,
+      "caracteristicas": [
+        "Wi-Fi 24 h",
+        "Cocina equipada",
+        "Patio interior",
+        "Acceso sin escaleras"
+      ],
+      "tarifaBaja": 120000,
+      "tarifaMedia": 150000,
+      "tarifaAlta": 192000,
+      "descripcion": "Detalles en guadua y patio interior; accesible desde la recepción.",
+      "imagenUrl": "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PENDIENTE_PREPARACION",
+      "motivo": null
+    },
+    {
+      "codigo": "B102",
+      "nombre": "Yarumo",
+      "bloque": "B",
+      "piso": 1,
+      "dormitorios": 1,
+      "capacidad": 3,
+      "caracteristicas": [
+        "Wi-Fi 24 h",
+        "Cocineta",
+        "Jardín"
+      ],
+      "tarifaBaja": 105000,
+      "tarifaMedia": 131000,
+      "tarifaAlta": 168000,
+      "descripcion": "Luminoso y tranquilo, rodeado de jardín.",
+      "imagenUrl": "https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PREPARADO",
+      "motivo": null
+    },
+    {
+      "codigo": "B201",
+      "nombre": "Arriero",
+      "bloque": "B",
+      "piso": 2,
+      "dormitorios": 2,
+      "capacidad": 5,
+      "caracteristicas": [
+        "Wi-Fi 24 h",
+        "Cocina equipada",
+        "Balcón",
+        "Lavadora"
+      ],
+      "tarifaBaja": 130000,
+      "tarifaMedia": 162000,
+      "tarifaAlta": 208000,
+      "descripcion": "Amplio, con balcón y lavadora para estancias largas.",
+      "imagenUrl": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PREPARADO",
+      "motivo": null
+    },
+    {
+      "codigo": "B202",
+      "nombre": "Colibrí",
+      "bloque": "B",
+      "piso": 2,
+      "dormitorios": 2,
+      "capacidad": 4,
+      "caracteristicas": [
+        "Vista al valle",
+        "Wi-Fi 24 h",
+        "Cocina equipada"
+      ],
+      "tarifaBaja": 128000,
+      "tarifaMedia": 160000,
+      "tarifaAlta": 205000,
+      "descripcion": "Rodeado de bebederos de colibríes y vista abierta al valle.",
+      "imagenUrl": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PREPARADO",
+      "motivo": null
+    },
+    {
+      "codigo": "B301",
+      "nombre": "Willys",
+      "bloque": "B",
+      "piso": 3,
+      "dormitorios": 3,
+      "capacidad": 6,
+      "caracteristicas": [
+        "Wi-Fi 24 h",
+        "Cocina equipada",
+        "Terraza",
+        "Parrilla"
+      ],
+      "tarifaBaja": 145000,
+      "tarifaMedia": 181000,
+      "tarifaAlta": 232000,
+      "descripcion": "Tres dormitorios y terraza con parrilla para grupos.",
+      "imagenUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80",
+      "estado": "FUERA_SERVICIO",
+      "motivo": "Reparación del calentador de agua"
+    },
+    {
+      "codigo": "B302",
+      "nombre": "Filandia",
+      "bloque": "B",
+      "piso": 3,
+      "dormitorios": 1,
+      "capacidad": 2,
+      "caracteristicas": [
+        "Vista a la montaña",
+        "Wi-Fi 24 h",
+        "Tina"
+      ],
+      "tarifaBaja": 115000,
+      "tarifaMedia": 144000,
+      "tarifaAlta": 184000,
+      "descripcion": "Refugio en el último piso con tina y vista a la montaña.",
+      "imagenUrl": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PENDIENTE_PREPARACION",
+      "motivo": null
+    },
+    {
+      "codigo": "C101",
+      "nombre": "Navarco",
+      "bloque": "C",
+      "piso": 1,
+      "dormitorios": 2,
+      "capacidad": 4,
+      "caracteristicas": [
+        "Wi-Fi 24 h",
+        "Cocina equipada",
+        "Jardín privado"
+      ],
+      "tarifaBaja": 125000,
+      "tarifaMedia": 156000,
+      "tarifaAlta": 200000,
+      "descripcion": "Jardín privado y salida directa a los senderos.",
+      "imagenUrl": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PREPARADO",
+      "motivo": null
+    },
+    {
+      "codigo": "C102",
+      "nombre": "Boquía",
+      "bloque": "C",
+      "piso": 1,
+      "dormitorios": 1,
+      "capacidad": 3,
+      "caracteristicas": [
+        "Wi-Fi 24 h",
+        "Cocineta",
+        "Hamaca"
+      ],
+      "tarifaBaja": 100000,
+      "tarifaMedia": 125000,
+      "tarifaAlta": 160000,
+      "descripcion": "Sencillo y encantador, con hamaca frente al río.",
+      "imagenUrl": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PENDIENTE_PREPARACION",
+      "motivo": null
+    },
+    {
+      "codigo": "C201",
+      "nombre": "Gran Suite Salento",
+      "bloque": "C",
+      "piso": 2,
+      "dormitorios": 3,
+      "capacidad": 8,
+      "caracteristicas": [
+        "Vista panorámica",
+        "Wi-Fi 24 h",
+        "Cocina gourmet",
+        "Sala y comedor",
+        "Chimenea"
+      ],
+      "tarifaBaja": 160000,
+      "tarifaMedia": 200000,
+      "tarifaAlta": 256000,
+      "descripcion": "La suite más amplia: tres dormitorios, cocina gourmet y vista panorámica.",
+      "imagenUrl": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80",
+      "estado": "PREPARADO",
+      "motivo": null
+    }
+  ],
+  "nodos": [
+    {
+      "id": "RECEPCION",
+      "nombre": "Recepción",
+      "tipo": "RECEPCION",
+      "bloque": "",
+      "piso": 1,
+      "x": 500,
+      "y": 590
+    },
+    {
+      "id": "ASEO-A",
+      "nombre": "Cuarto de aseo A",
+      "tipo": "CUARTO_ASEO",
+      "bloque": "A",
+      "piso": 1,
+      "x": 200,
+      "y": 590
+    },
+    {
+      "id": "ASEO-C",
+      "nombre": "Cuarto de aseo C",
+      "tipo": "CUARTO_ASEO",
+      "bloque": "C",
+      "piso": 1,
+      "x": 800,
+      "y": 590
+    },
+    {
+      "id": "ESC-A1",
+      "nombre": "Escalera A · piso 1",
+      "tipo": "ESCALERA",
+      "bloque": "A",
+      "piso": 1,
+      "x": 200,
+      "y": 470
+    },
+    {
+      "id": "ESC-A2",
+      "nombre": "Escalera A · piso 2",
+      "tipo": "ESCALERA",
+      "bloque": "A",
+      "piso": 2,
+      "x": 200,
+      "y": 330
+    },
+    {
+      "id": "ESC-A3",
+      "nombre": "Escalera A · piso 3",
+      "tipo": "ESCALERA",
+      "bloque": "A",
+      "piso": 3,
+      "x": 200,
+      "y": 190
+    },
+    {
+      "id": "ESC-B1",
+      "nombre": "Escalera B · piso 1",
+      "tipo": "ESCALERA",
+      "bloque": "B",
+      "piso": 1,
+      "x": 500,
+      "y": 470
+    },
+    {
+      "id": "ESC-B2",
+      "nombre": "Escalera B · piso 2",
+      "tipo": "ESCALERA",
+      "bloque": "B",
+      "piso": 2,
+      "x": 500,
+      "y": 330
+    },
+    {
+      "id": "ESC-B3",
+      "nombre": "Escalera B · piso 3",
+      "tipo": "ESCALERA",
+      "bloque": "B",
+      "piso": 3,
+      "x": 500,
+      "y": 190
+    },
+    {
+      "id": "ESC-C1",
+      "nombre": "Escalera C · piso 1",
+      "tipo": "ESCALERA",
+      "bloque": "C",
+      "piso": 1,
+      "x": 800,
+      "y": 470
+    },
+    {
+      "id": "ESC-C2",
+      "nombre": "Escalera C · piso 2",
+      "tipo": "ESCALERA",
+      "bloque": "C",
+      "piso": 2,
+      "x": 800,
+      "y": 330
+    },
+    {
+      "id": "PUENTE-AB",
+      "nombre": "Puente cubierto A–B",
+      "tipo": "PASILLO",
+      "bloque": "",
+      "piso": 2,
+      "x": 350,
+      "y": 400
+    },
+    {
+      "id": "A101",
+      "nombre": "Suite Palma de Cera",
+      "tipo": "APARTAMENTO",
+      "bloque": "A",
+      "piso": 1,
+      "x": 110,
+      "y": 470
+    },
+    {
+      "id": "A102",
+      "nombre": "Cocora",
+      "tipo": "APARTAMENTO",
+      "bloque": "A",
+      "piso": 1,
+      "x": 290,
+      "y": 470
+    },
+    {
+      "id": "A201",
+      "nombre": "Mirador Quindío",
+      "tipo": "APARTAMENTO",
+      "bloque": "A",
+      "piso": 2,
+      "x": 110,
+      "y": 330
+    },
+    {
+      "id": "A202",
+      "nombre": "Café de Origen",
+      "tipo": "APARTAMENTO",
+      "bloque": "A",
+      "piso": 2,
+      "x": 290,
+      "y": 330
+    },
+    {
+      "id": "A301",
+      "nombre": "Bahareque",
+      "tipo": "APARTAMENTO",
+      "bloque": "A",
+      "piso": 3,
+      "x": 110,
+      "y": 190
+    },
+    {
+      "id": "A302",
+      "nombre": "Barranquero",
+      "tipo": "APARTAMENTO",
+      "bloque": "A",
+      "piso": 3,
+      "x": 290,
+      "y": 190
+    },
+    {
+      "id": "B101",
+      "nombre": "Guadua",
+      "tipo": "APARTAMENTO",
+      "bloque": "B",
+      "piso": 1,
+      "x": 410,
+      "y": 470
+    },
+    {
+      "id": "B102",
+      "nombre": "Yarumo",
+      "tipo": "APARTAMENTO",
+      "bloque": "B",
+      "piso": 1,
+      "x": 590,
+      "y": 470
+    },
+    {
+      "id": "B201",
+      "nombre": "Arriero",
+      "tipo": "APARTAMENTO",
+      "bloque": "B",
+      "piso": 2,
+      "x": 410,
+      "y": 330
+    },
+    {
+      "id": "B202",
+      "nombre": "Colibrí",
+      "tipo": "APARTAMENTO",
+      "bloque": "B",
+      "piso": 2,
+      "x": 590,
+      "y": 330
+    },
+    {
+      "id": "B301",
+      "nombre": "Willys",
+      "tipo": "APARTAMENTO",
+      "bloque": "B",
+      "piso": 3,
+      "x": 410,
+      "y": 190
+    },
+    {
+      "id": "B302",
+      "nombre": "Filandia",
+      "tipo": "APARTAMENTO",
+      "bloque": "B",
+      "piso": 3,
+      "x": 590,
+      "y": 190
+    },
+    {
+      "id": "C101",
+      "nombre": "Navarco",
+      "tipo": "APARTAMENTO",
+      "bloque": "C",
+      "piso": 1,
+      "x": 710,
+      "y": 470
+    },
+    {
+      "id": "C102",
+      "nombre": "Boquía",
+      "tipo": "APARTAMENTO",
+      "bloque": "C",
+      "piso": 1,
+      "x": 890,
+      "y": 470
+    },
+    {
+      "id": "C201",
+      "nombre": "Gran Suite Salento",
+      "tipo": "APARTAMENTO",
+      "bloque": "C",
+      "piso": 2,
+      "x": 710,
+      "y": 330
+    }
+  ],
+  "pasillos": [
+    {
+      "origen": "RECEPCION",
+      "destino": "ESC-B1",
+      "metros": 14
+    },
+    {
+      "origen": "RECEPCION",
+      "destino": "ESC-A1",
+      "metros": 32
+    },
+    {
+      "origen": "RECEPCION",
+      "destino": "ASEO-A",
+      "metros": 28
+    },
+    {
+      "origen": "ASEO-A",
+      "destino": "ESC-A1",
+      "metros": 9
+    },
+    {
+      "origen": "RECEPCION",
+      "destino": "ESC-C1",
+      "metros": 32
+    },
+    {
+      "origen": "RECEPCION",
+      "destino": "ASEO-C",
+      "metros": 28
+    },
+    {
+      "origen": "ASEO-C",
+      "destino": "ESC-C1",
+      "metros": 9
+    },
+    {
+      "origen": "ESC-A1",
+      "destino": "ESC-A2",
+      "metros": 12
+    },
+    {
+      "origen": "ESC-A2",
+      "destino": "ESC-A3",
+      "metros": 12
+    },
+    {
+      "origen": "ESC-B1",
+      "destino": "ESC-B2",
+      "metros": 12
+    },
+    {
+      "origen": "ESC-B2",
+      "destino": "ESC-B3",
+      "metros": 12
+    },
+    {
+      "origen": "ESC-C1",
+      "destino": "ESC-C2",
+      "metros": 12
+    },
+    {
+      "origen": "ESC-A2",
+      "destino": "PUENTE-AB",
+      "metros": 17
+    },
+    {
+      "origen": "PUENTE-AB",
+      "destino": "ESC-B2",
+      "metros": 17
+    },
+    {
+      "origen": "A101",
+      "destino": "ESC-A1",
+      "metros": 10.0
+    },
+    {
+      "origen": "A102",
+      "destino": "ESC-A1",
+      "metros": 9.0
+    },
+    {
+      "origen": "A201",
+      "destino": "ESC-A2",
+      "metros": 10.0
+    },
+    {
+      "origen": "A202",
+      "destino": "ESC-A2",
+      "metros": 9.0
+    },
+    {
+      "origen": "A301",
+      "destino": "ESC-A3",
+      "metros": 10.0
+    },
+    {
+      "origen": "A302",
+      "destino": "ESC-A3",
+      "metros": 9.0
+    },
+    {
+      "origen": "B101",
+      "destino": "ESC-B1",
+      "metros": 10.0
+    },
+    {
+      "origen": "B102",
+      "destino": "ESC-B1",
+      "metros": 9.0
+    },
+    {
+      "origen": "B201",
+      "destino": "ESC-B2",
+      "metros": 10.0
+    },
+    {
+      "origen": "B202",
+      "destino": "ESC-B2",
+      "metros": 9.0
+    },
+    {
+      "origen": "B301",
+      "destino": "ESC-B3",
+      "metros": 10.0
+    },
+    {
+      "origen": "B302",
+      "destino": "ESC-B3",
+      "metros": 9.0
+    },
+    {
+      "origen": "C101",
+      "destino": "ESC-C1",
+      "metros": 10.0
+    },
+    {
+      "origen": "C102",
+      "destino": "ESC-C1",
+      "metros": 9.0
+    },
+    {
+      "origen": "C201",
+      "destino": "ESC-C2",
+      "metros": 10.0
+    }
+  ],
+  "huespedes": [
+    {
+      "documento": "1094000001",
+      "nombre": "Laura Gómez Arango",
+      "fechaNacimiento": "1992-04-18",
+      "telefono": "3104567890",
+      "correo": "laura.gomez@correo.com",
+      "clave": "Huesped123*",
+      "favoritos": [
+        "A101",
+        "C201",
+        "A302"
+      ]
+    },
+    {
+      "documento": "1094000002",
+      "nombre": "Andrés Felipe Restrepo",
+      "fechaNacimiento": "1985-09-02",
+      "telefono": "3112345678",
+      "correo": "andres.restrepo@correo.com",
+      "clave": "Huesped123*",
+      "favoritos": [
+        "C201"
+      ]
+    },
+    {
+      "documento": "1094000003",
+      "nombre": "María Camila Ospina",
+      "fechaNacimiento": "1990-12-11",
+      "telefono": "3129876543",
+      "correo": "maria.ospina@correo.com",
+      "clave": "Huesped123*",
+      "favoritos": []
+    },
+    {
+      "documento": "1094000004",
+      "nombre": "Juan David Salazar",
+      "fechaNacimiento": "1988-07-25",
+      "telefono": "3135551234",
+      "correo": "juan.salazar@correo.com",
+      "clave": "Huesped123*",
+      "favoritos": []
+    },
+    {
+      "documento": "1094000005",
+      "nombre": "Sofía Valencia Ríos",
+      "fechaNacimiento": "1995-02-14",
+      "telefono": "3146667788",
+      "correo": "sofia.valencia@correo.com",
+      "clave": "Huesped123*",
+      "favoritos": [
+        "B302"
+      ]
+    },
+    {
+      "documento": "1094000006",
+      "nombre": "Carlos Mario Quintero",
+      "fechaNacimiento": "1979-11-30",
+      "telefono": "3157778899",
+      "correo": "carlos.quintero@correo.com",
+      "clave": "Huesped123*",
+      "favoritos": []
+    },
+    {
+      "documento": "1094000007",
+      "nombre": "Daniela Montoya Cruz",
+      "fechaNacimiento": "1993-06-08",
+      "telefono": "3168889900",
+      "correo": "daniela.montoya@correo.com",
+      "clave": "Huesped123*",
+      "favoritos": []
+    },
+    {
+      "documento": "1094000008",
+      "nombre": "Julián Giraldo Henao",
+      "fechaNacimiento": "1987-03-21",
+      "telefono": "3179990011",
+      "correo": "julian.giraldo@correo.com",
+      "clave": "Huesped123*",
+      "favoritos": []
+    }
+  ],
+  "empleados": [
+    {
+      "documento": "1000000001",
+      "nombre": "Ana Lucía Marín",
+      "rol": "ADMINISTRADOR",
+      "usuario": "admin",
+      "correo": "admin@apartasuitesuq.co",
+      "telefono": "3001112233",
+      "clave": "Admin123*"
+    },
+    {
+      "documento": "1000000002",
+      "nombre": "Pedro Castaño",
+      "rol": "RECEPCIONISTA",
+      "usuario": "recepcion",
+      "correo": "pcastano@apartasuitesuq.co",
+      "telefono": "3002223344",
+      "clave": "Recep123*"
+    },
+    {
+      "documento": "1000000003",
+      "nombre": "Paula Henao",
+      "rol": "RECEPCIONISTA",
+      "usuario": "phenao",
+      "correo": "phenao@apartasuitesuq.co",
+      "telefono": "3003334455",
+      "clave": "Recep123*"
+    },
+    {
+      "documento": "1000000004",
+      "nombre": "Diego Arias",
+      "rol": "RECEPCIONISTA",
+      "usuario": "darias",
+      "correo": "darias@apartasuitesuq.co",
+      "telefono": "3004445566",
+      "clave": "Recep123*"
+    }
+  ],
+  "reservas": [
+    {
+      "apartamento": "A101",
+      "titular": "1094000001",
+      "ocupantes": [
+        {
+          "nombre": "Laura Gómez Arango",
+          "documento": "1094000001",
+          "fechaNacimiento": "1992-04-18"
+        },
+        {
+          "nombre": "Tomás Gómez",
+          "documento": "",
+          "fechaNacimiento": "2021-05-03"
+        }
+      ],
+      "entrada": -40,
+      "noches": 4,
+      "canal": "PORTAL",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "B201",
+      "titular": "1094000001",
+      "ocupantes": [
+        {
+          "nombre": "Laura Gómez Arango",
+          "documento": "1094000001",
+          "fechaNacimiento": "1992-04-18"
+        },
+        {
+          "nombre": "Felipe Arango",
+          "documento": "",
+          "fechaNacimiento": "1990-01-10"
+        }
+      ],
+      "entrada": -20,
+      "noches": 3,
+      "canal": "DIRECTA",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL",
+      "cargos": [
+        {
+          "concepto": "Minibar",
+          "monto": 45000
+        }
+      ]
+    },
+    {
+      "apartamento": "C201",
+      "titular": "1094000002",
+      "ocupantes": [
+        {
+          "nombre": "Andrés Felipe Restrepo",
+          "documento": "1094000002",
+          "fechaNacimiento": "1985-09-02"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 3",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 4",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 5",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -30,
+      "noches": 5,
+      "canal": "EXTERNA",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "A202",
+      "titular": "1094000003",
+      "ocupantes": [
+        {
+          "nombre": "María Camila Ospina",
+          "documento": "1094000003",
+          "fechaNacimiento": "1990-12-11"
+        },
+        {
+          "nombre": "Ricardo Ospina",
+          "documento": "",
+          "fechaNacimiento": "1989-03-03"
+        }
+      ],
+      "entrada": -15,
+      "noches": 3,
+      "canal": "PORTAL",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "B101",
+      "titular": "1094000004",
+      "ocupantes": [
+        {
+          "nombre": "Juan David Salazar",
+          "documento": "1094000004",
+          "fechaNacimiento": "1988-07-25"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -60,
+      "noches": 4,
+      "canal": "DIRECTA",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "A301",
+      "titular": "1094000006",
+      "ocupantes": [
+        {
+          "nombre": "Carlos Mario Quintero",
+          "documento": "1094000006",
+          "fechaNacimiento": "1979-11-30"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 3",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -75,
+      "noches": 3,
+      "canal": "PORTAL",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "C101",
+      "titular": "1094000007",
+      "ocupantes": [
+        {
+          "nombre": "Daniela Montoya Cruz",
+          "documento": "1094000007",
+          "fechaNacimiento": "1993-06-08"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -90,
+      "noches": 5,
+      "canal": "EXTERNA",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "B202",
+      "titular": "1094000008",
+      "ocupantes": [
+        {
+          "nombre": "Julián Giraldo Henao",
+          "documento": "1094000008",
+          "fechaNacimiento": "1987-03-21"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -120,
+      "noches": 4,
+      "canal": "DIRECTA",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "A102",
+      "titular": "1094000005",
+      "ocupantes": [
+        {
+          "nombre": "Sofía Valencia Ríos",
+          "documento": "1094000005",
+          "fechaNacimiento": "1995-02-14"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -150,
+      "noches": 3,
+      "canal": "PORTAL",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "C102",
+      "titular": "1094000003",
+      "ocupantes": [
+        {
+          "nombre": "María Camila Ospina",
+          "documento": "1094000003",
+          "fechaNacimiento": "1990-12-11"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -200,
+      "noches": 6,
+      "canal": "DIRECTA",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "A201",
+      "titular": "1094000002",
+      "ocupantes": [
+        {
+          "nombre": "Andrés Felipe Restrepo",
+          "documento": "1094000002",
+          "fechaNacimiento": "1985-09-02"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 3",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -240,
+      "noches": 4,
+      "canal": "PORTAL",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "B302",
+      "titular": "1094000004",
+      "ocupantes": [
+        {
+          "nombre": "Juan David Salazar",
+          "documento": "1094000004",
+          "fechaNacimiento": "1988-07-25"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -270,
+      "noches": 3,
+      "canal": "EXTERNA",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "A302",
+      "titular": "1094000001",
+      "ocupantes": [
+        {
+          "nombre": "Laura Gómez Arango",
+          "documento": "1094000001",
+          "fechaNacimiento": "1992-04-18"
+        },
+        {
+          "nombre": "Felipe Arango",
+          "documento": "",
+          "fechaNacimiento": "1990-01-10"
+        }
+      ],
+      "entrada": -300,
+      "noches": 2,
+      "canal": "DIRECTA",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "B102",
+      "titular": "1094000007",
+      "ocupantes": [
+        {
+          "nombre": "Daniela Montoya Cruz",
+          "documento": "1094000007",
+          "fechaNacimiento": "1993-06-08"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -330,
+      "noches": 3,
+      "canal": "PORTAL",
+      "estado": "FINALIZADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "B102",
+      "titular": "1094000004",
+      "ocupantes": [
+        {
+          "nombre": "Juan David Salazar",
+          "documento": "1094000004",
+          "fechaNacimiento": "1988-07-25"
+        }
+      ],
+      "entrada": -10,
+      "noches": 2,
+      "canal": "PORTAL",
+      "estado": "CANCELADA",
+      "horaLlegada": "15:00",
+      "pago": "NINGUNO",
+      "creadaDiasAntes": 12
+    },
+    {
+      "apartamento": "B301",
+      "titular": "1094000005",
+      "ocupantes": [
+        {
+          "nombre": "Sofía Valencia Ríos",
+          "documento": "1094000005",
+          "fechaNacimiento": "1995-02-14"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -6,
+      "noches": 2,
+      "canal": "DIRECTA",
+      "estado": "NO_SHOW",
+      "horaLlegada": "15:00",
+      "pago": "ANTICIPO"
+    },
+    {
+      "apartamento": "A302",
+      "titular": "1094000006",
+      "ocupantes": [
+        {
+          "nombre": "Carlos Mario Quintero",
+          "documento": "1094000006",
+          "fechaNacimiento": "1979-11-30"
+        },
+        {
+          "nombre": "Marta Quintero",
+          "documento": "",
+          "fechaNacimiento": "1982-02-02"
+        }
+      ],
+      "entrada": 12,
+      "noches": 3,
+      "canal": "PORTAL",
+      "estado": "CANCELADA",
+      "horaLlegada": "15:00",
+      "pago": "ANTICIPO",
+      "creadaDiasAntes": 20
+    },
+    {
+      "apartamento": "A102",
+      "titular": "1094000006",
+      "ocupantes": [
+        {
+          "nombre": "Carlos Mario Quintero",
+          "documento": "1094000006",
+          "fechaNacimiento": "1979-11-30"
+        },
+        {
+          "nombre": "Marta Quintero",
+          "documento": "",
+          "fechaNacimiento": "1982-02-02"
+        },
+        {
+          "nombre": "Samuel Quintero",
+          "documento": "",
+          "fechaNacimiento": "2022-08-15"
+        }
+      ],
+      "entrada": -2,
+      "noches": 4,
+      "canal": "DIRECTA",
+      "estado": "EN_CURSO",
+      "horaLlegada": "15:00",
+      "pago": "ANTICIPO",
+      "cargos": [
+        {
+          "concepto": "Servicio de lavandería",
+          "monto": 35000
+        }
+      ]
+    },
+    {
+      "apartamento": "B202",
+      "titular": "1094000007",
+      "ocupantes": [
+        {
+          "nombre": "Daniela Montoya Cruz",
+          "documento": "1094000007",
+          "fechaNacimiento": "1993-06-08"
+        },
+        {
+          "nombre": "Esteban Cruz",
+          "documento": "",
+          "fechaNacimiento": "1991-09-09"
+        }
+      ],
+      "entrada": -1,
+      "noches": 4,
+      "canal": "PORTAL",
+      "estado": "EN_CURSO",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "C101",
+      "titular": "1094000008",
+      "ocupantes": [
+        {
+          "nombre": "Julián Giraldo Henao",
+          "documento": "1094000008",
+          "fechaNacimiento": "1987-03-21"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": -3,
+      "noches": 3,
+      "canal": "EXTERNA",
+      "estado": "EN_CURSO",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL"
+    },
+    {
+      "apartamento": "A201",
+      "titular": "1094000005",
+      "ocupantes": [
+        {
+          "nombre": "Sofía Valencia Ríos",
+          "documento": "1094000005",
+          "fechaNacimiento": "1995-02-14"
+        },
+        {
+          "nombre": "Manuela Ríos",
+          "documento": "",
+          "fechaNacimiento": "1996-10-10"
+        }
+      ],
+      "entrada": 0,
+      "noches": 3,
+      "canal": "PORTAL",
+      "estado": "CONFIRMADA",
+      "horaLlegada": "14:00",
+      "pago": "ANTICIPO"
+    },
+    {
+      "apartamento": "B101",
+      "titular": "1094000003",
+      "ocupantes": [
+        {
+          "nombre": "María Camila Ospina",
+          "documento": "1094000003",
+          "fechaNacimiento": "1990-12-11"
+        },
+        {
+          "nombre": "Ricardo Ospina",
+          "documento": "",
+          "fechaNacimiento": "1989-03-03"
+        },
+        {
+          "nombre": "Lucía Ospina",
+          "documento": "",
+          "fechaNacimiento": "2023-01-20"
+        }
+      ],
+      "entrada": 0,
+      "noches": 2,
+      "canal": "DIRECTA",
+      "estado": "CONFIRMADA",
+      "horaLlegada": "11:30",
+      "pago": "NINGUNO"
+    },
+    {
+      "apartamento": "A301",
+      "titular": "1094000004",
+      "ocupantes": [
+        {
+          "nombre": "Juan David Salazar",
+          "documento": "1094000004",
+          "fechaNacimiento": "1988-07-25"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 3",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": 0,
+      "noches": 4,
+      "canal": "DIRECTA",
+      "estado": "CONFIRMADA",
+      "horaLlegada": "16:00",
+      "pago": "NINGUNO"
+    },
+    {
+      "apartamento": "A101",
+      "titular": "1094000001",
+      "ocupantes": [
+        {
+          "nombre": "Laura Gómez Arango",
+          "documento": "1094000001",
+          "fechaNacimiento": "1992-04-18"
+        },
+        {
+          "nombre": "Felipe Arango",
+          "documento": "",
+          "fechaNacimiento": "1990-01-10"
+        },
+        {
+          "nombre": "Tomás Gómez",
+          "documento": "",
+          "fechaNacimiento": "2021-05-03"
+        }
+      ],
+      "entrada": 10,
+      "noches": 4,
+      "canal": "PORTAL",
+      "estado": "CONFIRMADA",
+      "horaLlegada": "15:00",
+      "pago": "ANTICIPO",
+      "creadaDiasAntes": 25
+    },
+    {
+      "apartamento": "B201",
+      "titular": "1094000001",
+      "ocupantes": [
+        {
+          "nombre": "Laura Gómez Arango",
+          "documento": "1094000001",
+          "fechaNacimiento": "1992-04-18"
+        },
+        {
+          "nombre": "Felipe Arango",
+          "documento": "",
+          "fechaNacimiento": "1990-01-10"
+        }
+      ],
+      "entrada": 5,
+      "noches": 2,
+      "canal": "PORTAL",
+      "estado": "PENDIENTE",
+      "horaLlegada": "15:00",
+      "pago": "NINGUNO",
+      "creadaHorasAtras": 3
+    },
+    {
+      "apartamento": "C102",
+      "titular": "1094000002",
+      "ocupantes": [
+        {
+          "nombre": "Andrés Felipe Restrepo",
+          "documento": "1094000002",
+          "fechaNacimiento": "1985-09-02"
+        }
+      ],
+      "entrada": 3,
+      "noches": 2,
+      "canal": "PORTAL",
+      "estado": "PENDIENTE",
+      "horaLlegada": "15:00",
+      "pago": "NINGUNO",
+      "creadaHorasAtras": 26
+    },
+    {
+      "apartamento": "C201",
+      "titular": "1094000002",
+      "ocupantes": [
+        {
+          "nombre": "Andrés Felipe Restrepo",
+          "documento": "1094000002",
+          "fechaNacimiento": "1985-09-02"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 3",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 4",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 5",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        },
+        {
+          "nombre": "Acompañante 6",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": 15,
+      "noches": 3,
+      "canal": "DIRECTA",
+      "estado": "CONFIRMADA",
+      "horaLlegada": "15:00",
+      "pago": "ANTICIPO",
+      "creadaDiasAntes": 18
+    },
+    {
+      "apartamento": "A202",
+      "titular": "1094000008",
+      "ocupantes": [
+        {
+          "nombre": "Julián Giraldo Henao",
+          "documento": "1094000008",
+          "fechaNacimiento": "1987-03-21"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1990-01-01"
+        }
+      ],
+      "entrada": 2,
+      "noches": 4,
+      "canal": "EXTERNA",
+      "estado": "CONFIRMADA",
+      "horaLlegada": "15:00",
+      "pago": "TOTAL",
+      "creadaDiasAntes": 9
+    },
+    {
+      "apartamento": "B302",
+      "titular": "1094000005",
+      "ocupantes": [
+        {
+          "nombre": "Sofía Valencia Ríos",
+          "documento": "1094000005",
+          "fechaNacimiento": "1995-02-14"
+        },
+        {
+          "nombre": "Manuela Ríos",
+          "documento": "",
+          "fechaNacimiento": "1996-10-10"
+        }
+      ],
+      "entrada": 20,
+      "noches": 5,
+      "canal": "PORTAL",
+      "estado": "CONFIRMADA",
+      "horaLlegada": "15:00",
+      "pago": "ANTICIPO",
+      "creadaDiasAntes": 10
+    },
+    {
+      "apartamento": "A102",
+      "titular": "1094000003",
+      "ocupantes": [
+        {
+          "nombre": "María Camila Ospina",
+          "documento": "1094000003",
+          "fechaNacimiento": "1990-12-11"
+        },
+        {
+          "nombre": "Ricardo Ospina",
+          "documento": "",
+          "fechaNacimiento": "1989-03-03"
+        }
+      ],
+      "entrada": 8,
+      "noches": 3,
+      "canal": "DIRECTA",
+      "estado": "CONFIRMADA",
+      "horaLlegada": "15:00",
+      "pago": "NINGUNO",
+      "creadaDiasAntes": 6
+    }
+  ],
+  "solicitudesExternas": [
+    {
+      "plataforma": "BookStay",
+      "referencia": "BKS-551201",
+      "apartamento": "A101",
+      "titular": {
+        "documento": "1053000101",
+        "nombre": "Valeria Cardona",
+        "fechaNacimiento": "1991-08-19",
+        "telefono": "3201112233",
+        "correo": "valeria.cardona@correo.com"
+      },
+      "entrada": 20,
+      "noches": 3,
+      "horaLlegada": "15:00",
+      "ocupantes": [
+        {
+          "nombre": "Valeria Cardona",
+          "documento": "",
+          "fechaNacimiento": "1991-08-19"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1992-05-05"
+        }
+      ]
+    },
+    {
+      "plataforma": "TripNest",
+      "referencia": "TRN-778812",
+      "apartamento": "A101",
+      "titular": {
+        "documento": "1053000102",
+        "nombre": "Sebastián Mora",
+        "fechaNacimiento": "1986-02-27",
+        "telefono": "3202223344",
+        "correo": "sebastian.mora@correo.com"
+      },
+      "entrada": 11,
+      "noches": 2,
+      "horaLlegada": "17:00",
+      "ocupantes": [
+        {
+          "nombre": "Sebastián Mora",
+          "documento": "",
+          "fechaNacimiento": "1986-02-27"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1992-05-05"
+        }
+      ]
+    },
+    {
+      "plataforma": "AlojaYa",
+      "referencia": "ALO-102030",
+      "apartamento": "B202",
+      "titular": {
+        "documento": "1053000103",
+        "nombre": "Natalia Uribe",
+        "fechaNacimiento": "1994-11-05",
+        "telefono": "3203334455",
+        "correo": "natalia.uribe@correo.com"
+      },
+      "entrada": 8,
+      "noches": 2,
+      "horaLlegada": "14:00",
+      "ocupantes": [
+        {
+          "nombre": "Natalia Uribe",
+          "documento": "",
+          "fechaNacimiento": "1994-11-05"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1992-05-05"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1992-05-05"
+        }
+      ]
+    },
+    {
+      "plataforma": "BookStay",
+      "referencia": "BKS-551299",
+      "apartamento": "C201",
+      "titular": {
+        "documento": "1053000104",
+        "nombre": "Martín Echeverri",
+        "fechaNacimiento": "1980-04-14",
+        "telefono": "3204445566",
+        "correo": "martin.echeverri@correo.com"
+      },
+      "entrada": 16,
+      "noches": 1,
+      "horaLlegada": "18:00",
+      "ocupantes": [
+        {
+          "nombre": "Martín Echeverri",
+          "documento": "",
+          "fechaNacimiento": "1980-04-14"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1992-05-05"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1992-05-05"
+        },
+        {
+          "nombre": "Acompañante 3",
+          "documento": "",
+          "fechaNacimiento": "1992-05-05"
+        }
+      ]
+    },
+    {
+      "plataforma": "AlojaYa",
+      "referencia": "ALO-102077",
+      "apartamento": "A302",
+      "titular": {
+        "documento": "1053000105",
+        "nombre": "Gabriela Toro",
+        "fechaNacimiento": "1997-07-01",
+        "telefono": "3205556677",
+        "correo": "gabriela.toro@correo.com"
+      },
+      "entrada": 6,
+      "noches": 2,
+      "horaLlegada": "16:00",
+      "ocupantes": [
+        {
+          "nombre": "Gabriela Toro",
+          "documento": "",
+          "fechaNacimiento": "1997-07-01"
+        },
+        {
+          "nombre": "Acompañante 1",
+          "documento": "",
+          "fechaNacimiento": "1992-05-05"
+        },
+        {
+          "nombre": "Acompañante 2",
+          "documento": "",
+          "fechaNacimiento": "1992-05-05"
+        },
+        {
+          "nombre": "Acompañante 3",
+          "documento": "",
+          "fechaNacimiento": "1992-05-05"
+        }
+      ]
+    }
+  ],
+  "conflictosHistoricos": [
+    {
+      "plataforma": "BookStay",
+      "apartamento": "C201",
+      "entrada": -30,
+      "noches": 2,
+      "titular": "Ricardo Pérez",
+      "diasAtras": 33
+    },
+    {
+      "plataforma": "TripNest",
+      "apartamento": "B202",
+      "entrada": -1,
+      "noches": 2,
+      "titular": "Elena Suárez",
+      "diasAtras": 4
+    }
+  ],
+  "preparaciones": [
+    {
+      "apartamento": "A101",
+      "diasAtras": 36,
+      "esperaMinutos": 25,
+      "duracionMinutos": 48,
+      "responsable": "Pedro Castaño"
+    },
+    {
+      "apartamento": "B201",
+      "diasAtras": 17,
+      "esperaMinutos": 40,
+      "duracionMinutos": 55,
+      "responsable": "Paula Henao"
+    },
+    {
+      "apartamento": "C201",
+      "diasAtras": 25,
+      "esperaMinutos": 15,
+      "duracionMinutos": 82,
+      "responsable": "Diego Arias"
+    },
+    {
+      "apartamento": "A202",
+      "diasAtras": 12,
+      "esperaMinutos": 60,
+      "duracionMinutos": 42,
+      "responsable": "Pedro Castaño"
+    },
+    {
+      "apartamento": "B101",
+      "diasAtras": 56,
+      "esperaMinutos": 35,
+      "duracionMinutos": 50,
+      "responsable": "Paula Henao"
+    },
+    {
+      "apartamento": "A301",
+      "diasAtras": 72,
+      "esperaMinutos": 20,
+      "duracionMinutos": 61,
+      "responsable": "Diego Arias"
+    },
+    {
+      "apartamento": "C101",
+      "diasAtras": 85,
+      "esperaMinutos": 90,
+      "duracionMinutos": 58,
+      "responsable": "Pedro Castaño"
+    },
+    {
+      "apartamento": "B202",
+      "diasAtras": 116,
+      "esperaMinutos": 30,
+      "duracionMinutos": 47,
+      "responsable": "Paula Henao"
+    },
+    {
+      "apartamento": "A102",
+      "diasAtras": 147,
+      "esperaMinutos": 45,
+      "duracionMinutos": 53,
+      "responsable": "Diego Arias"
+    },
+    {
+      "apartamento": "C102",
+      "diasAtras": 194,
+      "esperaMinutos": 25,
+      "duracionMinutos": 39,
+      "responsable": "Pedro Castaño"
+    },
+    {
+      "apartamento": "B302",
+      "diasAtras": 267,
+      "esperaMinutos": 55,
+      "duracionMinutos": 44,
+      "responsable": "Paula Henao"
+    },
+    {
+      "apartamento": "A302",
+      "diasAtras": 298,
+      "esperaMinutos": 10,
+      "duracionMinutos": 36,
+      "responsable": "Diego Arias"
+    }
+  ]
+}
