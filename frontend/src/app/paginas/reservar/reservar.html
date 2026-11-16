@@ -1,0 +1,179 @@
+<div class="pagina">
+  <div class="encabezado-pagina">
+    <div>
+      <span class="sobretitulo">Disponibilidad</span>
+      <h1 class="titulo-display">Encuentra tu <span class="cursiva">apartamento</span></h1>
+      <p>Cada apartamento se entrega completo y en exclusiva a tu grupo. Los menores de 6 años no pagan.</p>
+    </div>
+  </div>
+
+  <form class="tarjeta filtros" (ngSubmit)="buscar()">
+    <div class="campo">
+      <label for="e">Llegada</label>
+      <input id="e" class="entrada" type="date" name="entrada" [min]="hoy" [(ngModel)]="entrada" />
+    </div>
+    <div class="campo">
+      <label for="s">Salida</label>
+      <input id="s" class="entrada" type="date" name="salida" [min]="entrada" [(ngModel)]="salida" />
+    </div>
+    <div class="campo">
+      <label for="p">Personas</label>
+      <input id="p" class="entrada" type="number" min="1" max="8" name="personas" [(ngModel)]="personas" />
+    </div>
+    <div class="campo">
+      <label for="o">Ordenar por</label>
+      <select id="o" class="entrada" name="orden" [(ngModel)]="orden" (ngModelChange)="buscar()">
+        <option value="precio">Precio total</option>
+        <option value="capacidad">Capacidad</option>
+        <option value="dormitorios">Dormitorios</option>
+        <option value="reservas">Más reservados</option>
+      </select>
+    </div>
+    <button class="btn" type="submit" [disabled]="buscando()"><app-icono nombre="buscar" [tamano]="16" /> Buscar</button>
+  </form>
+
+  <div class="resultado-info">
+    @if (buscado() && !buscando()) {
+      <span class="tenue">{{ opciones().length }} apartamento(s) libres del {{ entrada | fecha }} al {{ salida | fecha }}</span>
+    }
+  </div>
+
+  <div class="rejilla rejilla-3 escalonado">
+    @if (buscando()) {
+      @for (i of [1, 2, 3, 4, 5, 6]; track i) { <div class="esqueleto" style="height: 360px"></div> }
+    } @else {
+      @for (o of opciones(); track o.apartamento.codigo) {
+        <article class="opcion" (click)="abrir(o)">
+          <div class="foto">
+            <app-imagen-apto [url]="o.apartamento.imagenUrl" [nombre]="o.apartamento.nombre" />
+            <button class="corazon" type="button" [class.activo]="esFavorito(o.apartamento.codigo)" (click)="alternarFavorito(o.apartamento.codigo, $event)" aria-label="Favorito">
+              <app-icono nombre="corazon" [tamano]="18" />
+            </button>
+            <span class="etiqueta">{{ o.apartamento.codigo }}</span>
+          </div>
+          <div class="info">
+            <h3 class="cursiva">{{ o.apartamento.nombre }}</h3>
+            <div class="datos">
+              <span><app-icono nombre="cama" [tamano]="15" /> {{ o.apartamento.dormitorios }} hab.</span>
+              <span><app-icono nombre="personas" [tamano]="15" /> hasta {{ o.apartamento.capacidad }}</span>
+              <span><app-icono nombre="edificio" [tamano]="15" /> Bloque {{ o.apartamento.bloque }} · P{{ o.apartamento.piso }}</span>
+            </div>
+            <div class="caracteristicas">
+              @for (c of o.apartamento.caracteristicas.slice(0, 3); track c) { <span class="chip sin-punto">{{ c }}</span> }
+            </div>
+            <div class="fila-entre precio">
+              <div>
+                <strong>{{ o.total | moneda }}</strong>
+                <small>{{ o.noches }} noche(s) · {{ personas }} pers.</small>
+              </div>
+              <span class="btn secundario pequeno">Ver y reservar</span>
+            </div>
+          </div>
+        </article>
+      } @empty {
+        @if (buscado()) {
+          <div class="vacio tarjeta" style="grid-column: 1 / -1">
+            <span class="cursiva">Sin disponibilidad</span>
+            Prueba con otras fechas o menos personas.
+          </div>
+        }
+      }
+    }
+  </div>
+</div>
+
+@if (seleccion(); as s) {
+  <app-modal [titulo]="s.apartamento.nombre" [sobretitulo]="'Apartamento ' + s.apartamento.codigo" [ancho]="880" (cerrar)="cerrar()">
+    @if (creada(); as r) {
+      <div class="exito-reserva">
+        <span class="circulo-exito"><app-icono nombre="check" [tamano]="34" /></span>
+        <h3 class="cursiva">¡Reserva registrada!</h3>
+        <p>Tu código es <strong>{{ r.codigo }}</strong>. Quedó <span class="chip PENDIENTE">Pendiente</span> hasta que pagues el anticipo del 30 %:
+          <strong>{{ r.anticipoRequerido | moneda }}</strong>. Si no se paga en 24 horas se cancelará automáticamente.</p>
+      </div>
+    } @else {
+      <div class="detalle">
+        <div class="col-izq">
+          <div class="foto-grande"><app-imagen-apto [url]="s.apartamento.imagenUrl" [nombre]="s.apartamento.nombre" /></div>
+          <p class="suave">{{ s.apartamento.descripcion }}</p>
+          <div class="caracteristicas">
+            @for (c of s.apartamento.caracteristicas; track c) { <span class="chip sin-punto">{{ c }}</span> }
+          </div>
+          <div class="tarifas">
+            <div><small>Baja</small><strong>{{ s.apartamento.tarifaBaja | moneda }}</strong></div>
+            <div><small>Media</small><strong>{{ s.apartamento.tarifaMedia | moneda }}</strong></div>
+            <div><small>Alta</small><strong>{{ s.apartamento.tarifaAlta | moneda }}</strong></div>
+          </div>
+          <small class="tenue">Tarifa por persona por noche según la temporada.</small>
+        </div>
+        <div class="col-der">
+          <div class="fila-entre">
+            <span class="sobretitulo">Ocupantes ({{ ocupantes().length }}/{{ s.apartamento.capacidad }})</span>
+            <button class="btn fantasma pequeno" type="button" (click)="agregarOcupante()" [disabled]="ocupantes().length >= s.apartamento.capacidad">
+              <app-icono nombre="mas" [tamano]="14" /> Agregar
+            </button>
+          </div>
+          <div class="ocupantes">
+            @for (o of ocupantes(); track $index; let i = $index) {
+              <div class="ocupante">
+                <input class="entrada" placeholder="Nombre" [ngModel]="o.nombre" (ngModelChange)="actualizar(i, 'nombre', $event)" [name]="'n' + i" />
+                <input class="entrada" type="date" [ngModel]="o.fechaNacimiento" (ngModelChange)="actualizar(i, 'fechaNacimiento', $event)" [name]="'f' + i" />
+                <button class="btn fantasma icono" type="button" (click)="quitarOcupante(i)" [disabled]="ocupantes().length === 1" aria-label="Quitar">
+                  <app-icono nombre="cerrar" [tamano]="14" />
+                </button>
+              </div>
+            }
+          </div>
+          <div class="formulario mt">
+            <div class="campo">
+              <label for="hl">Hora estimada de llegada</label>
+              <input id="hl" class="entrada" type="time" name="hl" [(ngModel)]="horaLlegada" />
+            </div>
+            <div class="campo">
+              <label for="ob">Observaciones</label>
+              <input id="ob" class="entrada" name="ob" [(ngModel)]="observaciones" placeholder="Opcional" />
+            </div>
+          </div>
+
+          <div class="cotizacion" [class.cargando]="cotizando()">
+            <div class="fila-entre">
+              <span class="sobretitulo">Desglose noche por noche</span>
+              @if (cotizacion(); as c) { <span class="tenue">{{ c.personasQuePagan }} pagan · {{ c.personasExentas }} exentos</span> }
+            </div>
+            @if (cotizacion(); as c) {
+              <div class="noches">
+                @for (n of c.desglose; track n.fecha) {
+                  <div class="noche">
+                    <span>{{ n.fecha | fecha: 'larga' }}</span>
+                    <span class="chip sin-punto temporada" [attr.data-t]="n.temporada">{{ n.temporada }}</span>
+                    <span class="tenue">{{ n.tarifaPorPersona | moneda }} × {{ n.personasQuePagan }}</span>
+                    <span class="monto">{{ n.subtotal | moneda }}</span>
+                  </div>
+                }
+              </div>
+              <div class="total fila-entre">
+                <span>Total de la estancia</span>
+                <strong>{{ c.total | moneda }}</strong>
+              </div>
+              <div class="fila-entre tenue">
+                <span>Anticipo requerido (30 %)</span>
+                <span class="monto">{{ c.anticipo | moneda }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    }
+    <ng-container pie>
+      @if (creada()) {
+        <button class="btn secundario" type="button" (click)="cerrar()">Pagar después</button>
+        <button class="btn" type="button" (click)="pagarAnticipo()" [disabled]="reservando()"><app-icono nombre="dinero" [tamano]="16" /> Pagar anticipo</button>
+      } @else {
+        <button class="btn secundario" type="button" (click)="cerrar()">Cancelar</button>
+        <button class="btn" type="button" (click)="reservar()" [disabled]="reservando() || cotizando()">
+          <app-icono nombre="calendario" [tamano]="16" /> {{ sesion.esHuesped() ? 'Reservar' : 'Ingresar para reservar' }}
+        </button>
+      }
+    </ng-container>
+  </app-modal>
+}

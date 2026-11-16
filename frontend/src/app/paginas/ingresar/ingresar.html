@@ -1,0 +1,78 @@
+<div class="contenedor">
+  <aside class="visual">
+    <app-imagen-apto url="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80" nombre="Aparta-Suites" />
+    <div class="velo"></div>
+    <div class="cita">
+      <div class="adorno-estrellas">★ ★ ★ ★ ★</div>
+      <p class="titulo-display">Tu casa en</p>
+      <p class="cursiva">el Quindío</p>
+    </div>
+  </aside>
+
+  <section class="formulario-ingreso tarjeta">
+    @if (!modoRegistro()) {
+      <span class="sobretitulo">Bienvenido de nuevo</span>
+      <h1 class="cursiva">Ingresar</h1>
+      <form class="columna" (ngSubmit)="ingresar()">
+        <div class="campo">
+          <label for="usuario">Usuario, correo o documento</label>
+          <input id="usuario" class="entrada" name="usuario" [(ngModel)]="usuario" autocomplete="username" />
+        </div>
+        <div class="campo">
+          <label for="clave">Contraseña</label>
+          <div class="con-boton">
+            <input id="clave" class="entrada" [type]="verClave() ? 'text' : 'password'" name="clave" [(ngModel)]="clave" autocomplete="current-password" />
+            <button type="button" (click)="verClave.set(!verClave())" aria-label="Mostrar contraseña"><app-icono nombre="ojo" [tamano]="16" /></button>
+          </div>
+        </div>
+        <button class="btn bloque" type="submit" [disabled]="enviando()">
+          <app-icono nombre="entrar" [tamano]="16" /> {{ enviando() ? 'Ingresando…' : 'Ingresar' }}
+        </button>
+      </form>
+      <p class="cambio">¿Aún no tienes cuenta? <a routerLink="/registro">Crear una cuenta</a></p>
+
+      <hr class="separador" />
+      <span class="sobretitulo">Usuarios de demostración</span>
+      <div class="demo">
+        @for (d of demo; track d.usuario) {
+          <button type="button" (click)="usarDemo(d)">
+            <app-icono [nombre]="d.icono" [tamano]="16" />
+            <span><strong>{{ d.etiqueta }}</strong><small>{{ d.usuario }}</small></span>
+          </button>
+        }
+      </div>
+    } @else {
+      <span class="sobretitulo">Reserva en minutos</span>
+      <h1 class="cursiva">Crear cuenta</h1>
+      <form class="formulario" (ngSubmit)="registrarse()">
+        <div class="campo completo">
+          <label for="nombre">Nombre completo</label>
+          <input id="nombre" class="entrada" name="nombre" [(ngModel)]="registro.nombre" />
+        </div>
+        <div class="campo">
+          <label for="documento">Documento</label>
+          <input id="documento" class="entrada" name="documento" [(ngModel)]="registro.documento" />
+        </div>
+        <div class="campo">
+          <label for="nacimiento">Fecha de nacimiento</label>
+          <input id="nacimiento" class="entrada" type="date" name="nacimiento" [(ngModel)]="registro.fechaNacimiento" />
+        </div>
+        <div class="campo">
+          <label for="telefono">Teléfono</label>
+          <input id="telefono" class="entrada" name="telefono" [(ngModel)]="registro.telefono" />
+        </div>
+        <div class="campo">
+          <label for="correo">Correo</label>
+          <input id="correo" class="entrada" type="email" name="correo" [(ngModel)]="registro.correo" />
+        </div>
+        <div class="campo completo">
+          <label for="clave-r">Contraseña</label>
+          <input id="clave-r" class="entrada" type="password" name="clave" [(ngModel)]="registro.clave" autocomplete="new-password" />
+          <span class="ayuda">Mínimo 8 caracteres.</span>
+        </div>
+        <button class="btn bloque completo" type="submit" [disabled]="enviando()">{{ enviando() ? 'Creando…' : 'Crear mi cuenta' }}</button>
+      </form>
+      <p class="cambio">¿Ya tienes cuenta? <a routerLink="/ingresar">Ingresar</a></p>
+    }
+  </section>
+</div>

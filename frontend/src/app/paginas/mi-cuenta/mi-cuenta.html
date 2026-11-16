@@ -1,0 +1,183 @@
+<div class="pagina">
+  <section class="cabecera tarjeta">
+    <div class="avatar" [style.background-image]="perfil()?.foto ? 'url(' + perfil()!.foto + ')' : null">
+      @if (!perfil()?.foto) { <span>{{ (perfil()?.nombre ?? '?').charAt(0) }}</span> }
+    </div>
+    <div class="crece">
+      <span class="sobretitulo">Mi cuenta</span>
+      <h1 class="cursiva">{{ perfil()?.nombre }}</h1>
+      <span class="tenue">{{ perfil()?.correo }} · Documento {{ perfil()?.documento }}</span>
+    </div>
+    <div class="resumen">
+      <div><strong>{{ activas().length }}</strong><small>Reservas activas</small></div>
+      <div><strong>{{ historial().length }}</strong><small>Estancias</small></div>
+      <div><strong>{{ saldoTotal() | moneda }}</strong><small>Saldo pendiente</small></div>
+    </div>
+  </section>
+
+  <div class="fila-entre mt-lg mb">
+    <div class="pestanas">
+      <button type="button" [class.activa]="pestana() === 'reservas'" (click)="pestana.set('reservas')">Reservas</button>
+      <button type="button" [class.activa]="pestana() === 'favoritos'" (click)="pestana.set('favoritos')">Favoritos ({{ favoritos().length }})</button>
+      <button type="button" [class.activa]="pestana() === 'historial'" (click)="pestana.set('historial')">Historial</button>
+      <button type="button" [class.activa]="pestana() === 'perfil'" (click)="pestana.set('perfil')">Perfil</button>
+    </div>
+    <a class="btn" routerLink="/reservar"><app-icono nombre="mas" [tamano]="16" /> Nueva reserva</a>
+  </div>
+
+  @switch (pestana()) {
+    @case ('reservas') {
+      <div class="columna escalonado">
+        @if (cargando()) { <div class="esqueleto" style="height: 160px"></div> }
+        @for (r of activas(); track r.codigo) {
+          <article class="reserva tarjeta">
+            <div class="foto"><app-imagen-apto [url]="r.imagenUrl" [nombre]="r.apartamentoNombre" /></div>
+            <div class="cuerpo">
+              <div class="fila-entre">
+                <div>
+                  <span class="sobretitulo">{{ r.codigo }} · {{ r.apartamentoCodigo }}</span>
+                  <h3 class="cursiva">{{ r.apartamentoNombre }}</h3>
+                </div>
+                <span class="chip" [class]="r.estado">{{ r.estadoEtiqueta }}</span>
+              </div>
+              <div class="datos">
+                <span><app-icono nombre="calendario" [tamano]="15" /> {{ r.entrada | fecha }} → {{ r.salida | fecha }} · {{ r.noches }} noche(s)</span>
+                <span><app-icono nombre="personas" [tamano]="15" /> {{ r.ocupantes.length }} ocupante(s)</span>
+                <span><app-icono nombre="reloj" [tamano]="15" /> Llegada {{ r.horaLlegada | hora }}</span>
+              </div>
+              @if (r.estado === 'PENDIENTE' && r.venceEn) {
+                <div class="alerta-vence"><app-icono nombre="alerta" [tamano]="15" /> Paga el anticipo antes de {{ r.venceEn | fecha: 'hora' }} o la reserva se cancelará.</div>
+              }
+              <div class="fila-entre pie">
+                <div class="montos">
+                  <span>Total <strong>{{ r.total | moneda }}</strong></span>
+                  <span>Pagado <strong>{{ r.pagado | moneda }}</strong></span>
+                  <span>Saldo <strong [class.debe]="r.saldo > 0">{{ r.saldo | moneda }}</strong></span>
+                </div>
+                <div class="fila">
+                  <button class="btn fantasma pequeno" type="button" (click)="verFolio(r)"><app-icono nombre="dinero" [tamano]="14" /> Folio</button>
+                  @if (r.estado === 'PENDIENTE') {
+                    <button class="btn pequeno" type="button" [disabled]="ocupado()" (click)="pagarAnticipo(r)">Pagar anticipo {{ r.anticipoPendiente | moneda }}</button>
+                  } @else if (r.saldo > 0) {
+                    <button class="btn pequeno" type="button" [disabled]="ocupado()" (click)="pagarSaldo(r)">Pagar saldo</button>
+                  }
+                  @if (r.estado !== 'EN_CURSO') {
+                    <button class="btn secundario pequeno" type="button" (click)="prepararCancelacion(r)">Cancelar</button>
+                  }
+                </div>
+              </div>
+            </div>
+          </article>
+        } @empty {
+          @if (!cargando()) {
+            <div class="vacio tarjeta"><span class="cursiva">Aún no tienes reservas activas</span>Explora los apartamentos y reserva tu próxima escapada.</div>
+          }
+        }
+        @if (cerradas().length) {
+          <span class="sobretitulo mt">Canceladas y no-show</span>
+          <div class="tabla-contenedor">
+            <table class="tabla">
+              <thead><tr><th>Reserva</th><th>Apartamento</th><th>Fechas</th><th>Estado</th><th>Motivo</th></tr></thead>
+              <tbody>
+                @for (r of cerradas(); track r.codigo) {
+                  <tr><td>{{ r.codigo }}</td><td>{{ r.apartamentoNombre }}</td><td>{{ r.entrada | fecha: 'corta' }} – {{ r.salida | fecha: 'corta' }}</td>
+                    <td><span class="chip" [class]="r.estado">{{ r.estadoEtiqueta }}</span></td><td class="tenue">{{ r.motivoCierre }}</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+    }
+    @case ('favoritos') {
+      <div class="rejilla rejilla-3 escalonado">
+        @for (a of favoritos(); track a.codigo) {
+          <div class="favorito tarjeta">
+            <div class="foto"><app-imagen-apto [url]="a.imagenUrl" [nombre]="a.nombre" /></div>
+            <div class="fila-entre">
+              <div><span class="sobretitulo">{{ a.codigo }}</span><h3 class="cursiva">{{ a.nombre }}</h3></div>
+              <button class="btn fantasma icono" type="button" (click)="quitarFavorito(a)" aria-label="Quitar de favoritos"><app-icono nombre="corazon" /></button>
+            </div>
+            <span class="tenue">{{ a.dormitorios }} hab. · hasta {{ a.capacidad }} personas · desde {{ a.tarifaBaja | moneda }}</span>
+          </div>
+        } @empty {
+          <div class="vacio tarjeta" style="grid-column: 1 / -1"><span class="cursiva">Sin favoritos</span>Marca el corazón en los apartamentos que te gusten.</div>
+        }
+      </div>
+    }
+    @case ('historial') {
+      <div class="linea-tiempo escalonado">
+        @for (r of historial(); track r.codigo) {
+          <div class="hito">
+            <span class="punto"></span>
+            <div class="tarjeta">
+              <div class="fila-entre">
+                <div><span class="sobretitulo">{{ r.entrada | fecha }}</span><h3 class="cursiva">{{ r.apartamentoNombre }}</h3></div>
+                <strong class="monto">{{ r.total | moneda }}</strong>
+              </div>
+              <span class="tenue">{{ r.noches }} noche(s) · {{ r.ocupantes.length }} ocupante(s) · canal {{ r.canal.toLowerCase() }}</span>
+            </div>
+          </div>
+        } @empty {
+          <div class="vacio tarjeta"><span class="cursiva">Tu historial está vacío</span>Aquí verás tus estancias finalizadas.</div>
+        }
+      </div>
+    }
+    @case ('perfil') {
+      <div class="rejilla perfil">
+        <div class="tarjeta foto-perfil">
+          <div class="avatar grande" [style.background-image]="editable.foto ? 'url(' + editable.foto + ')' : null">
+            @if (!editable.foto) { <span>{{ editable.nombre.charAt(0) }}</span> }
+          </div>
+          <label class="btn secundario pequeno">
+            <app-icono nombre="subir" [tamano]="14" /> Cambiar fotografía
+            <input type="file" accept="image/*" hidden (change)="elegirFoto($event)" />
+          </label>
+          @if (editable.foto) { <button class="btn fantasma pequeno" type="button" (click)="quitarFoto()">Quitar</button> }
+          <span class="tenue">Opcional · máximo 900 KB</span>
+        </div>
+        <form class="tarjeta formulario" (ngSubmit)="guardarPerfil()">
+          <div class="campo completo"><label for="pn">Nombre</label><input id="pn" class="entrada" name="nombre" [(ngModel)]="editable.nombre" /></div>
+          <div class="campo"><label for="pf">Fecha de nacimiento</label><input id="pf" class="entrada" type="date" name="fn" [(ngModel)]="editable.fechaNacimiento" /></div>
+          <div class="campo"><label for="pt">Teléfono</label><input id="pt" class="entrada" name="tel" [(ngModel)]="editable.telefono" /></div>
+          <div class="campo"><label for="pc">Correo</label><input id="pc" class="entrada" type="email" name="correo" [(ngModel)]="editable.correo" /></div>
+          <div class="campo"><label for="pk">Nueva contraseña</label><input id="pk" class="entrada" type="password" name="clave" [(ngModel)]="editable.clave" placeholder="Déjala vacía para conservarla" /></div>
+          <div class="completo derecha"><button class="btn" type="submit" [disabled]="ocupado()">Guardar cambios</button></div>
+        </form>
+      </div>
+    }
+  }
+</div>
+
+@if (folio(); as f) {
+  <app-modal titulo="Folio de la reserva" [sobretitulo]="f.reserva" [ancho]="720" (cerrar)="folio.set(null)">
+    <div class="tabla-contenedor">
+      <table class="tabla">
+        <thead><tr><th>#</th><th>Fecha</th><th>Concepto</th><th>Tipo</th><th class="derecha">Monto</th></tr></thead>
+        <tbody>
+          @for (m of f.movimientos; track m.numero) {
+            <tr><td>{{ m.numero }}</td><td>{{ m.fecha | fecha: 'hora' }}</td><td>{{ m.concepto }}</td><td><span class="tenue">{{ m.tipoEtiqueta }}</span></td>
+              <td class="derecha monto" [class.positivo]="m.efecto < 0">{{ m.efecto | moneda }}</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="fila-entre mt"><span class="suave">Cargos {{ f.totalCargos | moneda }} · Pagado {{ f.totalPagado | moneda }}</span><strong class="saldo">Saldo {{ f.saldo | moneda }}</strong></div>
+  </app-modal>
+}
+
+@if (cancelando(); as c) {
+  <app-modal titulo="Cancelar reserva" [sobretitulo]="c.reserva.codigo" [ancho]="520" (cerrar)="cancelando.set(null)">
+    <p class="suave">{{ c.reembolso.regla }}.</p>
+    <div class="reembolso">
+      <div><small>Pagado</small><strong>{{ c.reembolso.pagado | moneda }}</strong></div>
+      <div class="destacado"><small>Te devolvemos ({{ c.reembolso.porcentaje }} %)</small><strong>{{ c.reembolso.reembolso | moneda }}</strong></div>
+      <div><small>Retenido</small><strong>{{ c.reembolso.retenido | moneda }}</strong></div>
+    </div>
+    <div class="campo mt"><label for="mot">Motivo (opcional)</label><input id="mot" class="entrada" [(ngModel)]="motivo" name="motivo" /></div>
+    <ng-container pie>
+      <button class="btn secundario" type="button" (click)="cancelando.set(null)">Conservar reserva</button>
+      <button class="btn peligro" type="button" [disabled]="ocupado()" (click)="confirmarCancelacion()">Cancelar reserva</button>
+    </ng-container>
+  </app-modal>
+}

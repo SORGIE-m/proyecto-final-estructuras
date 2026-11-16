@@ -1,0 +1,72 @@
+<section class="portada">
+  <div class="texto">
+    <div class="adorno-estrellas">★ ★ ★ ★ ★</div>
+    <h1 class="titulo-display">El alojamiento<br />de tus sueños</h1>
+    <p class="cursiva lema">en Salento</p>
+    <p class="descripcion">Apartamentos completos de 1 a 3 habitaciones, con cocina, sala y comedor, entregados en exclusiva
+      a tu grupo en el corazón del Paisaje Cultural Cafetero.</p>
+    <div class="fila">
+      <a class="btn" routerLink="/reservar"><app-icono nombre="calendario" [tamano]="16" /> Reserva ahora</a>
+      <span class="telefono"><app-icono nombre="telefono" [tamano]="16" /> (+57) 606 745 0000</span>
+    </div>
+  </div>
+  <div class="collage">
+    <div class="foto f1"><app-imagen-apto url="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=80" nombre="Salento" /></div>
+    <div class="foto f2"><app-imagen-apto url="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=900&q=80" nombre="Suite" /></div>
+    <div class="foto f3"><app-imagen-apto url="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=80" nombre="Habitación" /></div>
+  </div>
+</section>
+
+<section class="buscador">
+  <form class="tarjeta panel-busqueda" (ngSubmit)="buscar()">
+    <div class="campo">
+      <label for="entrada">Llegada</label>
+      <input id="entrada" class="entrada" type="date" name="entrada" [(ngModel)]="entrada" required />
+    </div>
+    <div class="campo">
+      <label for="salida">Salida</label>
+      <input id="salida" class="entrada" type="date" name="salida" [(ngModel)]="salida" required />
+    </div>
+    <div class="campo">
+      <label for="personas">Personas</label>
+      <input id="personas" class="entrada" type="number" min="1" max="8" name="personas" [(ngModel)]="personas" />
+    </div>
+    <button class="btn" type="submit"><app-icono nombre="buscar" [tamano]="16" /> Buscar disponibilidad</button>
+  </form>
+</section>
+
+<section class="servicios escalonado">
+  @for (s of servicios; track s.titulo) {
+    <div class="servicio">
+      <span class="circulo"><app-icono [nombre]="s.icono" [tamano]="26" [grosor]="1.3" /></span>
+      <strong>{{ s.titulo }}</strong>
+      <span>{{ s.texto }}</span>
+    </div>
+  }
+</section>
+
+<section class="destacados">
+  <div class="encabezado">
+    <span class="sobretitulo">Nuestros apartamentos</span>
+    <h2 class="titulo-display">Espacios para <span class="cursiva">compartir</span></h2>
+  </div>
+  <div class="rejilla rejilla-3 escalonado">
+    @if (cargando()) {
+      @for (i of [1, 2, 3]; track i) { <div class="esqueleto" style="height: 340px"></div> }
+    }
+    @for (a of destacados(); track a.codigo) {
+      <a class="apto" routerLink="/reservar">
+        <div class="foto-apto"><app-imagen-apto [url]="a.imagenUrl" [nombre]="a.nombre" /></div>
+        <div class="info">
+          <div class="fila-entre">
+            <span class="sobretitulo">Bloque {{ a.bloque }} · Piso {{ a.piso }}</span>
+            <span class="tenue">{{ a.dormitorios }} hab · {{ a.capacidad }} pers.</span>
+          </div>
+          <h3 class="cursiva">{{ a.nombre }}</h3>
+          <p>{{ a.descripcion }}</p>
+          <div class="precio">desde <strong>{{ a.tarifaBaja | moneda }}</strong> <span>por persona / noche</span></div>
+        </div>
+      </a>
+    }
+  </div>
+</section>

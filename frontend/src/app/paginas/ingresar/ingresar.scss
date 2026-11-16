@@ -1,0 +1,53 @@
+.contenedor {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1180px;
+  margin: 24px auto 0;
+  padding: 0 20px;
+  align-items: stretch;
+}
+
+.visual {
+  position: relative; border-radius: var(--radio-lg); overflow: hidden; min-height: 560px; box-shadow: var(--sombra-lg);
+  animation: aparecer-escala .7s both;
+  app-imagen-apto { position: absolute; inset: 0; }
+  .velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(53,44,37,0) 30%, rgba(53,44,37,.7)); }
+  .cita { position: absolute; left: 36px; bottom: 36px; color: #fbf6ef;
+    .titulo-display { font-size: 30px; color: #fbf6ef; margin: 10px 0 0; }
+    .cursiva { font-size: 52px; color: var(--acento-claro); margin: -6px 0 0; }
+  }
+}
+
+.formulario-ingreso {
+  padding: clamp(24px, 4vw, 44px);
+  border-radius: var(--radio-lg);
+  animation: aparecer .6s .1s both;
+  h1 { font-size: 46px; margin: 4px 0 22px; }
+}
+
+.con-boton {
+  position: relative;
+  button { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); border: none; background: transparent; color: var(--texto-tenue); cursor: pointer; padding: 6px; border-radius: 8px; }
+  button:hover { background: var(--arena-100); }
+}
+
+.cambio { margin-top: 18px; color: var(--texto-suave); font-size: 14px; a { font-weight: 500; border-bottom: 1px solid var(--acento-claro); } }
+
+.demo {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px;
+  button {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px; border-radius: 14px; text-align: left;
+    border: 1px solid var(--borde); background: var(--superficie-2); cursor: pointer; color: var(--tierra-700); font-family: var(--fuente);
+    transition: all .2s ease;
+    &:hover { border-color: var(--tierra-600); background: #fff; transform: translateY(-2px); box-shadow: var(--sombra-sm); }
+    strong { display: block; font-weight: 500; font-size: 13px; }
+    small { display: block; font-size: 11px; color: var(--texto-tenue); word-break: break-all; }
+  }
+}
+
+@media (max-width: 900px) {
+  .contenedor { grid-template-columns: 1fr; }
+  .visual { min-height: 260px; }
+  .demo { grid-template-columns: 1fr; }
+}

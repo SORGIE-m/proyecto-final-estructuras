@@ -1,0 +1,64 @@
+.filtros {
+  display: grid; grid-template-columns: repeat(4, 1fr) auto; gap: 16px; align-items: end; border-radius: var(--radio-lg);
+  .btn { height: 44px; }
+}
+.resultado-info { min-height: 22px; margin: 18px 4px 14px; }
+
+.opcion {
+  border-radius: var(--radio-lg); overflow: hidden; background: var(--superficie); border: 1px solid var(--borde); cursor: pointer;
+  box-shadow: var(--sombra-sm); transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease;
+  &:hover { transform: translateY(-5px); box-shadow: var(--sombra); }
+  .foto { position: relative; height: 210px; app-imagen-apto { height: 100%; } }
+  .etiqueta { position: absolute; left: 14px; top: 14px; background: rgba(253,250,246,.92); padding: 4px 12px; border-radius: 999px;
+    font-size: 11px; letter-spacing: .18em; color: var(--tierra-700); }
+  .info { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; }
+  h3 { font-size: 26px; }
+  .datos { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--texto-suave); span { display: inline-flex; gap: 6px; align-items: center; } }
+  .precio { margin-top: 4px; strong { display: block; font-size: 20px; font-weight: 500; color: var(--tierra-800); } small { color: var(--texto-tenue); } }
+}
+
+.corazon {
+  position: absolute; right: 12px; top: 12px; width: 38px; height: 38px; border-radius: 50%; border: none; cursor: pointer;
+  display: grid; place-items: center; background: rgba(253,250,246,.92); color: var(--tierra-600); transition: transform .2s ease, color .2s ease;
+  &:hover { transform: scale(1.1); }
+  &.activo { color: var(--peligro); ::ng-deep svg { fill: currentColor; } }
+}
+
+.caracteristicas { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.detalle { display: grid; grid-template-columns: 1fr 1.15fr; gap: 26px; }
+.foto-grande { height: 220px; border-radius: var(--radio); overflow: hidden; margin-bottom: 14px; app-imagen-apto { height: 100%; } }
+.tarifas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 14px 0 6px;
+  div { background: var(--superficie-2); border: 1px solid var(--borde); border-radius: 12px; padding: 10px 12px; }
+  small { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .16em; color: var(--texto-tenue); }
+  strong { font-weight: 500; font-size: 14px; }
+}
+
+.ocupantes { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.ocupante { display: grid; grid-template-columns: 1fr 160px 38px; gap: 8px; animation: aparecer .3s both; }
+
+.cotizacion {
+  margin-top: 18px; padding: 16px; border-radius: var(--radio); background: var(--superficie-2); border: 1px solid var(--borde);
+  transition: opacity .2s ease;
+  &.cargando { opacity: .55; }
+}
+.noches { display: flex; flex-direction: column; margin: 10px 0; max-height: 210px; overflow-y: auto; }
+.noche { display: grid; grid-template-columns: 1.4fr auto 1fr auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--borde); font-size: 13.5px;
+  .temporada[data-t='Alta'] { background: #f6e1dc; color: var(--estado-fuera); }
+  .temporada[data-t='Media'] { background: var(--estado-pendiente-bg); color: #a87b22; }
+  .temporada[data-t='Baja'] { background: var(--estado-preparado-bg); color: var(--estado-preparado); }
+}
+.total { padding: 10px 0 4px; font-size: 15px; strong { font-family: var(--fuente-display); font-size: 30px; font-weight: 500; color: var(--tierra-800); } }
+
+.exito-reserva { text-align: center; padding: 10px 10px 4px;
+  h3 { font-size: 34px; margin: 14px 0 8px; }
+  p { color: var(--texto-suave); max-width: 520px; margin: 0 auto; line-height: 1.8; }
+}
+.circulo-exito { width: 76px; height: 76px; border-radius: 50%; display: inline-grid; place-items: center; background: var(--estado-preparado-bg);
+  color: var(--exito); animation: aparecer-escala .5s both; }
+
+@media (max-width: 900px) {
+  .filtros { grid-template-columns: 1fr 1fr; .btn { grid-column: 1 / -1; } }
+  .detalle { grid-template-columns: 1fr; }
+  .ocupante { grid-template-columns: 1fr 130px 38px; }
+}

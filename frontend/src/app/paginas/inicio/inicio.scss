@@ -1,0 +1,99 @@
+.portada {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(24px, 5vw, 72px);
+  align-items: center;
+  padding: clamp(32px, 6vw, 80px) clamp(16px, 6vw, 96px) 40px;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.texto {
+  animation: aparecer .8s cubic-bezier(.2, .7, .2, 1) both;
+  h1 { font-size: clamp(30px, 3.6vw, 50px); letter-spacing: .18em; color: var(--tierra-700); margin-top: 18px; }
+  .lema { font-size: clamp(44px, 6vw, 78px); margin: -4px 0 18px; line-height: 1; }
+  .descripcion { font-size: 17px; color: var(--texto-suave); max-width: 520px; margin-bottom: 30px; font-weight: 300; }
+  .btn { height: 50px; padding: 0 30px; }
+}
+
+.telefono {
+  display: inline-flex; align-items: center; gap: 10px; font-size: 18px; color: var(--tierra-700); font-weight: 300;
+  margin-left: 10px; letter-spacing: .04em;
+}
+
+.collage {
+  position: relative;
+  height: clamp(360px, 42vw, 520px);
+  .foto {
+    position: absolute; border-radius: 20px; overflow: hidden; border: 6px solid #fdfaf6; box-shadow: var(--sombra-lg);
+    transition: transform .6s cubic-bezier(.2, .7, .2, 1);
+    app-imagen-apto { height: 100%; }
+  }
+  .f1 { left: 0; top: 18%; width: 46%; height: 58%; transform: rotate(-4deg); animation: aparecer-escala .9s .15s both; }
+  .f2 { left: 26%; top: 0; width: 50%; height: 72%; z-index: 2; animation: aparecer-escala .9s .3s both; }
+  .f3 { right: 0; top: 24%; width: 44%; height: 60%; transform: rotate(4deg); animation: aparecer-escala .9s .45s both; }
+  &:hover .f1 { transform: rotate(-6deg) translateX(-10px); }
+  &:hover .f3 { transform: rotate(6deg) translateX(10px); }
+}
+
+.buscador { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+.panel-busqueda {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  gap: 16px;
+  align-items: end;
+  padding: 22px 24px;
+  border-radius: 999px;
+  box-shadow: var(--sombra);
+  .btn { height: 46px; }
+}
+
+.servicios {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1100px;
+  margin: 64px auto 24px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.servicio {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  strong { font-weight: 400; text-transform: uppercase; letter-spacing: .2em; font-size: 12px; color: var(--tierra-700); margin-top: 6px; }
+  span:last-child { font-size: 13.5px; color: var(--texto-tenue); max-width: 220px; }
+}
+
+.circulo {
+  width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; color: var(--tierra-700);
+  background: var(--superficie); border: 1px solid var(--borde); box-shadow: var(--sombra-sm);
+  transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease;
+}
+.servicio:hover .circulo { transform: translateY(-4px); box-shadow: var(--sombra); }
+
+.destacados {
+  max-width: 1280px;
+  margin: 56px auto 0;
+  padding: 0 clamp(16px, 4vw, 40px);
+  .encabezado { text-align: center; margin-bottom: 36px; h2 { font-size: clamp(24px, 3vw, 34px); margin-top: 10px; } .cursiva { text-transform: none; letter-spacing: 0; font-size: 1.3em; } }
+}
+
+.apto {
+  display: flex; flex-direction: column; border-radius: var(--radio-lg); overflow: hidden; background: var(--superficie);
+  border: 1px solid var(--borde); box-shadow: var(--sombra-sm); color: inherit;
+  transition: transform .35s cubic-bezier(.2, .7, .2, 1), box-shadow .35s ease;
+  &:hover { transform: translateY(-6px); box-shadow: var(--sombra); }
+  &:hover .foto-apto ::ng-deep img { transform: scale(1.05); }
+  .foto-apto { height: 220px; app-imagen-apto { height: 100%; } }
+  .info { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 6px; }
+  h3 { font-size: 28px; }
+  p { margin: 0; color: var(--texto-suave); font-size: 14px; min-height: 42px; }
+  .precio { margin-top: 8px; font-size: 13px; color: var(--texto-tenue); strong { color: var(--tierra-800); font-size: 17px; font-weight: 500; } }
+}
+
+@media (max-width: 900px) {
+  .portada { grid-template-columns: 1fr; }
+  .panel-busqueda { grid-template-columns: 1fr 1fr; border-radius: var(--radio-lg); .btn { grid-column: 1 / -1; } }
+  .servicios { grid-template-columns: repeat(2, 1fr); }
+}
